@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 
 export default function Profile() {
   const id = useParams().id;
-  console.log(id, typeof id);
+  console.log(typeof id);
   return (
     <div>
       <h2>profile 페이지 입니다</h2>
