@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        class Component extends React.Component {
+            // state = {
+            //     count : 0,
+            // }
+            
+            constructor(props){
+                super(props);
+
+                this.state = {count:0}
+            }
+
+            render(){
+                return (
+                <div>
+                    <h1>react</h1>
+                    <div>{this.state.count} 111</div>
+                    <div>{this.props.message}</div>
+                </div>
+                )
+            }
+
+            ComponentDidMount(){
+                setTimeout(() => {
+                   this.setState((previousState) => {
+                       const newState = {count : previousState.count + 1}
+                       return newState
+                   }) 
+                }, timeout);
+            }
+
+            static defaultProps = {message:"default props"}
+        }
+
+        ReactDOM.render(<Component message="props" />, document.querySelector("#root"))
+    </script>
+    <div id="root"></div>
+</body>
+</html>

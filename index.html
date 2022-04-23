@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        console.log(React);
+        console.log(ReactDOM);
+        
+        // React.createElement(
+        //     type, //태그 이름 문자열 | 리액트 컴포넌트 | React.Fragment
+        //     [props], //리액트 컴포넌트에 넣어주는 데이터 객체
+        //     [...children] // 자식으로 넣어주는 요소들
+        // )
+
+        // 1. 태그 이름 문자열 type
+        // ReactDOM.render(
+        //     React.createElement('h1', null, `type 이 "태그 이름 문자열" 입니다.`)
+        //     document.querySelector('#root');
+        // )
+
+        // 2. 리액트 컴포넌트  type
+        // const Component2 = () => {
+        //     return React.createElement('p', null, `type이 "React 컴포넌트" 입니다`)
+        // }
+
+        // ReactDOM.render(
+        //     React.createElement(Component2, null, null),
+        //     document.querySelector("#root")
+        // )
+
+        //3. React.Fragment
+        // ReactDOM.render(
+        //     React.createElement(
+        //         React.Fragment,
+        //         null,
+        //         `type 이 "React Fragment" 입니다`
+        //     ),
+        //     document.querySelector('#root')
+        // )
+
+        //4. 복잡한 리액트 엘리먼트 모임
+
+        //작성한 코드 => 순수하게 실행할 수 있는 자바스크립트
+        //babel이 컴파일 해줌
+        // const title = "주제!!"
+
+        // ReactDOM.render(
+        //     <div>
+        //         <div>
+        //             <h1>{title}</h1>
+        //             <ul>
+        //                 <li>React</li>    
+        //                 <li>Vue</li>    
+        //             </ul>
+        //         </div>    
+        //     </div>,
+        //     document.querySelector('#root')
+        // )
+
+        //{message: '안녕하세요!!!'}
+        // function Component(props) {
+        //     return (<div><h1>{props.message} 이것은 함수로 만듬 컴포넌트 입니다</h1></div>)
+        // }
+
+        // class Component extends React.Component{
+        //     // state = { //state는 객체로 써야함
+        //     //     count:0,
+        //     // };
+
+        //     constructor(props){
+        //         super(props);
+
+        //         this.state = {count:0}
+        //     }
+
+        //     render(){
+        //         return (
+        //             <div>
+        //                 <h1>
+        //                     {this.props.message} 이것은 함수로 만듬 컴포넌트 입니다
+        //                 </h1>
+        //                 <p>{this.state.count}</p>
+        //             </div>
+        //         )
+        //     }
+
+        //     componentDidMount(){
+        //         setTimeout(() => {
+        //             // this.state.count = this.state.count + 1;
+        //             // this.setState({
+        //             //     count:this.state.count + 1,
+        //             // })
+        //             this.setState((previousState) => {
+        //                 const newState = { count : previousState.count + 1}
+        //                 return newState
+        //             })
+        //         },1000)
+        //     }
+
+        //     static defaultProps = {
+        //         message: "기본값2",
+        //     }
+        // }
+        
+        // Component.defaultProps = {
+        //     message: "기본값",
+        // }
+
+        // function Component() {
+        //     return <div><button onClick={() => {
+        //         console.log('click');
+        //     }}>클릭</button></div>
+        // }
+
+        // class Component extends React.Component {
+        //     state = {count:0};
+        //     // constructor(props){
+        //     //     super(props);
+        //     //     this.click = this.click.bind(this);
+        //     // }
+        //     render() {
+        //         return (
+        //             <div>
+        //                 <p>{this.state.count}</p>
+        //                 <button onClick={this.click}>클릭</button>
+        //             </div>
+        //         )
+        //     }
+
+        //     click = () => {
+        //         console.log("clicked");
+        //         this.setState(state => ({count:this.state.count + 1}));
+        //     }
+        // }
+
+        // ReactDOM.render(<Component />, document.querySelector("#root"))
+        // ReactDOM.render(<Component message="기본값 아님" />, document.querySelector("#root"))
+
+        class App extends React.Component{
+            state = {
+                age: 39,
+            };
+            constructor(props){
+                super(props);
+                console.log('constructor', props);
+            }
+            render(){
+                console.log('render');
+                return(
+                    <div>
+                        <h2>Hello {this.props.name} - {this.state.age}</h2>
+                    </div>
+                )
+            }
+            componentWillMount() {
+                console.log('componentWillMount');
+            }
+            componentDidMount() {
+                console.log('componentDidMount');
+                //timer 및 api를 componentdidmount에서 설정
+
+                setInterval(() => {
+                    // console.log("setInterval");
+                    this.setState(state => ({age: this.state.age + 1}))
+                }, 1000)
+            }
+            componentWillReceiveProps(nextProps){
+                console.log('componentWillReceiveProps', nextProps);
+            }
+
+            shouldComponentUpdate(nextProps, nextState){
+                console.log('shouldComponentUpdate', nextProps, nextState);
+
+                return false;
+            }
+
+            componentWillUpdate(nextProps, nextState){
+                console.log('componentWillUpdate', nextProps, nextState);
+            }
+
+            componentDidUpdate(prevProps, prevState){
+                console.log('componentDidUpdate', prevProps, prevState);
+
+            }
+
+            componentWillUnmount(){
+                
+            }
+        }
+
+        ReactDOM.render(<App name="mark" />, document.querySelector("#root"));
+    </script>
+    <div id="root"></div>
+</body>
+</html>
