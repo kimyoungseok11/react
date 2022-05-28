@@ -9,15 +9,12 @@ const user = {
   lastName: "김",
 };
 
-let time = new Date().toLocaleTimeString;
-
 function App() {
   if (user) {
     return (
       <div>
-        <h2>
-          {formatName(user)}! {time}
-        </h2>
+        <h2>{formatName(user)}!</h2>
+        <h2>It is {new Date().toLocaleTimeString()}.</h2>
       </div>
     );
   } else {
