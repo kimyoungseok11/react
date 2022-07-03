@@ -5,13 +5,36 @@ function App() {
   const name = "react";
   const name2 = "vue";
   const undefine = undefined;
+  const styleCss = {
+    backgroundColor: "black",
+    color: "aqua",
+    fontSize: "48px",
+    fontWeight: "bold",
+    padding: 16,
+  };
   return (
     <>
       <h1>hello react</h1>
       {name === "react" ? <div>react</div> : <div>vue</div>}
       {name === "react" && <div>react맞음</div>}
       {name2 === "react" && <div>react맞음</div>}
+      {name === "react" && <div>react</div>}
+      {name === "react" ? <div>react</div> : <div>vue</div>}
+      <div style={styleCss}>styled component</div>
+      <div
+        style={{
+          backgroundColor: "black",
+          color: "aqua",
+          fontSize: "48px",
+          fontWeight: "bold",
+          padding: 16,
+        }}
+      >
+        styled component
+      </div>
       {undefine || "undefined"}
+      <div className="react">className</div>
+      <div></div>
     </>
   );
 }
