@@ -1,23 +1,17 @@
-import React, { Component } from "react";
-import MyComponent from "./components/MyComponent";
-import MyClassComponent from "./components/MyClassComponent";
-import Counter from "./components/Counter";
-import CounterFuctionComponent from "./components/CounterFuctionComponent";
+import { Component } from "react";
+import MyComponents from "./components/MyComponents.js";
+import "./App.css";
 
-export default class App extends Component {
+class App extends Component {
   render() {
-    const number = 9;
+    const name = "react";
     return (
       <div>
-        <MyComponent name="props이름" favoriteNumber={number}>
-          sss
-        </MyComponent>
-        <MyClassComponent name="classComponent" favoriteNumber={number}>
-          ddd
-        </MyClassComponent>
-        <Counter></Counter>
-        <CounterFuctionComponent></CounterFuctionComponent>
+        <div className="react">{name}</div>
+        <MyComponents name="react">{name}</MyComponents>
       </div>
     );
   }
 }
+
+export default App;
