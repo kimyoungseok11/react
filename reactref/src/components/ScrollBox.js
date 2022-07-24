@@ -4,7 +4,10 @@ export default class ScrollBox extends Component {
   scrollToBottom = () => {
     const { scrollHeight, clientHeight } = this.box;
 
-    console.log(scrollHeight, clientHeight);
+    console.log(this.box.style.left);
+    console.log(this.box.style.transition);
+
+    this.box.style.left = "100px";
 
     this.box.scrollTop = scrollHeight - clientHeight;
   };
@@ -16,6 +19,7 @@ export default class ScrollBox extends Component {
       width: "300px",
       overflow: "auto",
       position: "relative",
+      transition: "all 2s linear",
     };
 
     const innerStyle = {
