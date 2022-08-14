@@ -1,0 +1,10 @@
+.templete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.wrapper {
+  width: 400px;
+  height: 600px;
+  background: #ffffff;
+}
