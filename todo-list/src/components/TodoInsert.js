@@ -17,9 +17,29 @@ const TodoInsert = () => {
     setList(newList);
   };
 
+  const modifyList = (x) => {
+    const newItem = {
+      id: x[0].id,
+      name: x[0].name,
+    };
+    let newList = list.filter((item) => item.id !== x[0].id);
+    newList = newList.concat(newItem);
+
+    newList = newList.sort(function (a, b) {
+      return a.id - b.id;
+    });
+
+    setList(newList);
+  };
+
   const itemList = list.map((item) => (
     <li key={item.id}>
-      <TodoItem name={item.name} id={item.id} getIndex={deleteLIst}></TodoItem>
+      <TodoItem
+        name={item.name}
+        id={item.id}
+        getIndex={deleteLIst}
+        getTask={modifyList}
+      ></TodoItem>
     </li>
   ));
 
@@ -37,7 +57,6 @@ const TodoInsert = () => {
     setList(newList);
     setId(id + 1);
     setTask("");
-    console.log(list);
   };
 
   return (
