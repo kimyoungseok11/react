@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MdAdd } from "react-icons/md";
 import "../css/TodoInsert.css";
-import TodoLIst from "./TodoLIst";
+import TodoItem from "./TodoItem";
 
 const TodoInsert = () => {
   const [list, setList] = useState([
@@ -12,6 +12,16 @@ const TodoInsert = () => {
 
   const [task, setTask] = useState("");
   const [id, setId] = useState(list[list.length - 1]["id"]);
+  const deleteLIst = (x) => {
+    const newList = list.filter((item) => item.id !== x);
+    setList(newList);
+  };
+
+  const itemList = list.map((item) => (
+    <li key={item.id}>
+      <TodoItem name={item.name} id={item.id} getIndex={deleteLIst}></TodoItem>
+    </li>
+  ));
 
   const handleTaskChange = (e) => {
     setTask(e.target.value);
@@ -45,7 +55,7 @@ const TodoInsert = () => {
         </button>
       </div>
       <div className="item-box">
-        <TodoLIst list={list}></TodoLIst>
+        <ul>{itemList}</ul>
       </div>
     </div>
   );
