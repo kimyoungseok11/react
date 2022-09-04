@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/kimyoungseok11/react/issues"
   },
-  "homepage": "https://github.com/kimyoungseok11/react#readme"
+  "homepage": "https://github.com/kimyoungseok11/react#readme",
+  "dependencies": {
+    "react-router-dom": "^6.3.0"
+  }
 }
