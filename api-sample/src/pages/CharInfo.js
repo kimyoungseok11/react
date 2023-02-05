@@ -28,7 +28,6 @@ const CharInfo = () => {
         const url = `${baseURL}${serverId}/characters?characterName=${name}&wordType=match&limit=50&apikey=${apiKey}`;
         const response = await axios.get(url);
         setInfos(response.data.rows);
-        console.log(response.data.rows);
       } catch (e) {
         console.log(e);
       }
