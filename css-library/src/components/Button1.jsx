@@ -5,6 +5,7 @@ const Button1 = () => {
   return (
     <div>
       <button className={styles.button}>Button1</button>
+      <button id={styles.button}>button</button>
     </div>
   );
 };
