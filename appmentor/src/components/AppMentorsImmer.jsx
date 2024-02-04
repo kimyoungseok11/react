@@ -1,8 +1,7 @@
-// import React, { useReducer, useState } from "react";
-import React, { useReducer } from "react";
-import personReducer from "../reducer/person-reducer";
+import React, { useState } from "react";
+import { useImmer } from "use-immer";
 
-const AppMentor = (props) => {
+const AppMentorImmer = (props) => {
   const initialPerson = {
     name: "엘리",
     title: "개발자",
@@ -18,8 +17,7 @@ const AppMentor = (props) => {
     ],
   };
 
-  //   const [person, setPerson] = useState(initialPerson);
-  const [person, dispatch] = useReducer(personReducer, initialPerson);
+  const [person, updatePerson] = useImmer(initialPerson);
 
   return (
     <div>
@@ -39,17 +37,11 @@ const AppMentor = (props) => {
           const prev = prompt("누구의 이름을 바꿀까요?");
           const current = prompt("이름은 어떻게 바꿀까요?");
 
-          dispatch({ type: "update", prev, current });
-          //   setPerson((person) => ({
-          //     ...person,
-          //     mentors: person.mentors.map((mentor) => {
-          //       if (mentor.name === prev) {
-          //         return { ...mentor, name: current };
-          //       } else {
-          //         return mentor;
-          //       }
-          //     }),
-          //   }));
+          updatePerson((person) => {
+            console.log(person);
+            const mentor = person.mentors.find((m) => m.name === prev);
+            mentor.name = current;
+          });
         }}
       >
         멘토 이름 바꾸기
@@ -59,11 +51,9 @@ const AppMentor = (props) => {
           const name = prompt("추가할 이름?");
           const title = prompt("추가할 타이틀?");
 
-          dispatch({ type: "added", name, title });
-          //   setPerson((person) => ({
-          //     ...person,
-          //     mentors: [...person.mentors, { name, title }],
-          //   }));
+          updatePerson((person) => {
+            person.mentors.push({ name, title });
+          });
         }}
       >
         멘토 추가하기
@@ -72,11 +62,10 @@ const AppMentor = (props) => {
         onClick={() => {
           const name = prompt("삭제할 이름?");
 
-          dispatch({ type: "deleted", name });
-          //   setPerson((person) => ({
-          //     ...person,
-          //     mentors: person.mentors.filter((mentor) => mentor.name !== name),
-          //   }));
+          updatePerson((person) => {
+            const index = person.mentors.findIndex((m) => m.name === name);
+            person.mentors.splice(index, 1);
+          });
         }}
       >
         멘토 삭제하기
@@ -85,4 +74,4 @@ const AppMentor = (props) => {
   );
 };
 
-export default AppMentor;
+export default AppMentorImmer;
