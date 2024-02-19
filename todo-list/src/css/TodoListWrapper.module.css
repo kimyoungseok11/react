@@ -1,0 +1,24 @@
+.listWrapper {
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.listWrapper .listBox {
+  width: 100%;
+  height: calc(100% - 80px);
+}
+
+.listWrapper .listBox .todoItem {
+}
+
+.footerWrapper {
+  width: 100%;
+  height: 70px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

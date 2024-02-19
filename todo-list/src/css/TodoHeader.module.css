@@ -1,0 +1,41 @@
+.todoHeader {
+  width: 100%;
+  height: 80px;
+  background: #1a1b35;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom: 1px solid #3b3c54;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.todoHeader .menuWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 25px;
+  box-sizing: border-box;
+}
+
+.todoHeader .menuWrapper .darkLightIcon {
+  width: 30px;
+  height: 30px;
+}
+
+.todoHeader .menuWrapper .menuBox {
+  width: 200px;
+  height: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.todoHeader .menuWrapper .menuBox .menuText {
+  list-style: none;
+  color: #b0734c;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
