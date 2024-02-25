@@ -11,7 +11,17 @@
   height: calc(100% - 80px);
 }
 
-.listWrapper .listBox .todoItem {
+.listWrapper .listBox .todoList {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 20px;
+}
+
+.listWrapper .listBox .todoList .todoItems {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .footerWrapper {
