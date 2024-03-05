@@ -1,14 +1,23 @@
+import { setTodoList } from "../util/todoLocalStorage.js";
+
 export default function todoListReducer(prevItem, action) {
   switch (action.type) {
     case "add": {
       const { addItem } = action;
+      let newArray;
       let newIdx;
       if (prevItem.length === 0) {
         newIdx = 0;
       } else {
         newIdx = prevItem[prevItem.length - 1].index + 1;
       }
-      return [...prevItem, { index: newIdx, name: addItem, isChecked: false }];
+
+      newArray = [
+        ...prevItem,
+        { index: newIdx, name: addItem, isChecked: false },
+      ];
+      setTodoList(newArray);
+      return newArray;
     }
     case "update": {
       const { isChecked, index } = action;
@@ -19,6 +28,7 @@ export default function todoListReducer(prevItem, action) {
           return { ...item };
         }
       });
+      setTodoList([...newItems]);
       return [...newItems];
     }
     case "delete": {
@@ -27,6 +37,8 @@ export default function todoListReducer(prevItem, action) {
       const newItems = prevItem.filter((item) => {
         return item.index !== index;
       });
+
+      setTodoList([...newItems]);
       return [...newItems];
     }
     case "default": {

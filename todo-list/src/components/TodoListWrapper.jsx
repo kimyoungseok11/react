@@ -1,12 +1,16 @@
-import React, { useReducer, useState } from "react";
+import React, { useReducer, useState, useContext } from "react";
 import style from "../css/TodoListWrapper.module.css";
 import todoListReducer from "../reducer/todoListReducer";
 import { FaTrashAlt } from "react-icons/fa";
+import { getTodoList } from "../util/todoLocalStorage.js";
+import { DarkModeContext } from "../context/todoListContext";
 
 const TodoListWrapper = () => {
-  const initialList = [{ index: 1, name: "ddd", isChecked: false }];
+  // const initialList = [{ index: 1, name: "ddd", isChecked: false }];
+  const initialList = getTodoList();
   const [todoItems, dispatch] = useReducer(todoListReducer, initialList);
   const [addItem, setAddItem] = useState("");
+  const { darkMode } = useContext(DarkModeContext);
   const handleInputChnage = (e) => {
     setAddItem(e.target.value);
   };
@@ -16,7 +20,6 @@ const TodoListWrapper = () => {
   };
   const handleCheckBox = (isChecked, index) => {
     dispatch({ type: "update", todoItems, isChecked, index });
-    // dispatch({});
   };
   const handleTrashCanClick = (index) => {
     dispatch({ type: "delete", todoItems, index });
@@ -29,13 +32,22 @@ const TodoListWrapper = () => {
             <div className={style.todoItems}>
               <input
                 type="checkbox"
+                id={`check${item.index}`}
+                className={style.checkBox}
+                checked={item.isChecked}
                 onChange={() => {
                   handleCheckBox(item.isChecked, item.index);
                 }}
               ></input>
-              {item.name}
+              <label for={`check${item.index}`}></label>
+              {item.isChecked ? (
+                <span className={style.checkedItem}>{item.name}</span>
+              ) : (
+                <span>{item.name}</span>
+              )}
             </div>
             <FaTrashAlt
+              className={style.deleteIcon}
               onClick={() => {
                 handleTrashCanClick(item.index);
               }}
