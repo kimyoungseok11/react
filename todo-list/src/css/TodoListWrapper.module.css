@@ -6,6 +6,10 @@
   border-bottom-right-radius: 20px;
 }
 
+.listWrapper.light {
+  background: #fff;
+}
+
 .listWrapper .listBox {
   width: 100%;
   height: calc(100% - 80px);
@@ -30,8 +34,8 @@
 
 .listWrapper .listBox .todoList .todoItems input[type="checkbox"] + label {
   display: inline-block;
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
   border: 1px solid #707070;
   position: relative;
   background: #fff;
@@ -44,8 +48,8 @@
   input[type="checkbox"]:checked
   + label::after {
   content: "✔";
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
   text-align: center;
   position: absolute;
   left: 0;
@@ -56,7 +60,12 @@
   background-color: #ffb94f;
 }
 
-.listWrapper .listBox .todoList .todoItems input[type="checkbox"]:checked {
+.listWrapper
+  .listBox
+  .todoList
+  .todoItems
+  .itemWrapper
+  input[type="checkbox"]:checked {
   background: rgb(230, 163, 76);
 }
 
@@ -64,6 +73,10 @@
   padding-left: 10px;
   font-weight: 400;
   color: #fff;
+}
+
+.listWrapper .listBox .todoList .todoItems span.light {
+  color: #000;
 }
 
 .listWrapper .listBox .todoList .todoItems .checkedItem {
@@ -83,4 +96,35 @@
   align-items: center;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
+}
+
+.footerWrapper.light {
+  background-color: #e0e0e0;
+}
+
+.footerWrapper .inputWrapper {
+  width: 90%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footerWrapper .inputWrapper .todoInput {
+  width: 80%;
+  height: 100%;
+  padding: 0 10px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border: none;
+  outline: none;
+}
+
+.footerWrapper .inputWrapper .todoButton {
+  width: 10%;
+  height: 100%;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: #ffb94f;
+  border: none;
 }

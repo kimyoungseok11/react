@@ -10,6 +10,11 @@
   align-items: center;
 }
 
+.todoHeader.light {
+  background: #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
 .todoHeader .menuWrapper {
   width: 100%;
   display: flex;

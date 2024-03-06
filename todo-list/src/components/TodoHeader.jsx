@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import style from "../css/TodoHeader.module.css";
 import { IoSunny, IoMoon } from "react-icons/io5";
 import { DarkModeContext } from "../context/todoListContext";
+import { MenuListContext } from "../context/MenuListContext";
 
 const TodoHeader = () => {
   const menus = [
@@ -11,20 +12,30 @@ const TodoHeader = () => {
   ];
 
   const { darkMode, toggleDarkMode } = useContext(DarkModeContext);
-
+  const { changeMenuNumber } = useContext(MenuListContext);
   return (
-    <div className={style.todoHeader}>
+    <div
+      className={
+        !darkMode ? `${style.todoHeader}` : `${style.todoHeader} ${style.light}`
+      }
+    >
       <div className={style.menuWrapper}>
         <div className={style.darkLightIcon} onClick={() => toggleDarkMode()}>
           {darkMode ? (
-            <IoMoon color="#fff" size="30" />
+            <IoMoon color="#b0734c" size="30" />
           ) : (
             <IoSunny color="#fff" size="30" />
           )}
         </div>
         <ul className={style.menuBox}>
           {menus.map((menu) => (
-            <li className={style.menuText} key={menu.id}>
+            <li
+              className={style.menuText}
+              key={menu.id}
+              onClick={() => {
+                changeMenuNumber(menu.id);
+              }}
+            >
               {menu.name}
             </li>
           ))}

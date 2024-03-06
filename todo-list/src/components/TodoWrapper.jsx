@@ -3,13 +3,16 @@ import styles from "../css/TodoWrapper.module.css";
 import TodoHeader from "./TodoHeader";
 import TodoListWrapper from "./TodoListWrapper";
 import { DarkModeProvider } from "../context/todoListContext";
+import { MenuListProvider } from "../context/MenuListContext";
 
 const TodoWrapper = () => {
   return (
     <div className={styles.todoWrapper}>
       <DarkModeProvider>
-        <TodoHeader />
-        <TodoListWrapper />
+        <MenuListProvider>
+          <TodoHeader />
+          <TodoListWrapper />
+        </MenuListProvider>
       </DarkModeProvider>
     </div>
   );
