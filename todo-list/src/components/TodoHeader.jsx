@@ -13,7 +13,8 @@ const TodoHeader = () => {
   ];
 
   const { darkMode, toggleDarkMode } = useContext(DarkModeContext);
-  const { changeMenuNumber } = useContext(MenuListContext);
+  const { menuNumber, changeMenuNumber } = useContext(MenuListContext);
+
   return (
     <div
       className={
@@ -37,7 +38,12 @@ const TodoHeader = () => {
         <ul className={style.menuBox}>
           {menus.map((menu) => (
             <li
-              className={style.menuText}
+              //   className={style.menuText}
+              className={
+                menuNumber === menu.id
+                  ? `${style.menuText} ${style.active}`
+                  : `${style.menuText}`
+              }
               key={menu.id}
               onClick={() => {
                 changeMenuNumber(menu.id);

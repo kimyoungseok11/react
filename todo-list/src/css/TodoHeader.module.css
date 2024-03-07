@@ -44,3 +44,11 @@
   font-weight: bold;
   cursor: pointer;
 }
+
+.todoHeader .menuWrapper .menuBox .menuText.active {
+  text-decoration-line: underline;
+  text-decoration-color: #fff;
+  text-decoration-thickness: 2px;
+  text-underline-position: under;
+  color: #ecaf69;
+}

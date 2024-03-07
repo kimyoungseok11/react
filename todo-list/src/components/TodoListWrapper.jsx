@@ -19,8 +19,10 @@ const TodoListWrapper = () => {
     setAddItem(e.target.value);
   };
   const handleAddClick = () => {
-    dispatch({ type: "add", todoItems, addItem });
-    setAddItem("");
+    if (addItem !== "") {
+      dispatch({ type: "add", todoItems, addItem });
+      setAddItem("");
+    }
   };
   const handleCheckBox = (isChecked, index) => {
     dispatch({ type: "update", todoItems, isChecked, index });
