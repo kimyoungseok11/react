@@ -3,6 +3,7 @@ import style from "../css/TodoHeader.module.css";
 import { IoSunny, IoMoon } from "react-icons/io5";
 import { DarkModeContext } from "../context/todoListContext";
 import { MenuListContext } from "../context/MenuListContext";
+import { setDarkModeStorage } from "../util/darkModeStorage";
 
 const TodoHeader = () => {
   const menus = [
@@ -20,7 +21,13 @@ const TodoHeader = () => {
       }
     >
       <div className={style.menuWrapper}>
-        <div className={style.darkLightIcon} onClick={() => toggleDarkMode()}>
+        <div
+          className={style.darkLightIcon}
+          onClick={() => {
+            toggleDarkMode();
+            setDarkModeStorage(!darkMode);
+          }}
+        >
           {darkMode ? (
             <IoMoon color="#b0734c" size="30" />
           ) : (
