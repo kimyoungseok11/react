@@ -4,7 +4,7 @@ import SearchBar from "../components/SearchBar";
 
 const Root = () => {
   return (
-    <div className="bg-[#19181C] px-20 pt-10 box-border w-[100vw]">
+    <div className="bg-[#19181C] box-border w-[100vw]">
       <SearchBar></SearchBar>
       <Outlet></Outlet>
     </div>
