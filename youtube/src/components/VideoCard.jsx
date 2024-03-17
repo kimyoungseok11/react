@@ -1,14 +1,12 @@
 import React from "react";
 
 const VideoCard = (props) => {
-  console.log(props);
   const { thumbnails, title, channelTitle, publishTime } = props;
   const today = new Date();
   const time = new Date(publishTime);
   const diffMsec = today.getTime() - time.getTime();
   const diffDate = diffMsec / (24 * 60 * 60 * 1000);
   const diffHour = diffMsec / (60 * 60 * 1000);
-  console.log(diffDate, diffHour);
 
   return (
     <div className={`w-[250px]`}>

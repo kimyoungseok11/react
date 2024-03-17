@@ -6,6 +6,7 @@ import Videos from "./pages/Videos";
 import Root from "./pages/Root";
 import NotFound from "./pages/NotFound";
 import VideoDetail from "./pages/VideoDetail";
+import VideoPlay from "./pages/VideoPlay";
 import "./App.css";
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
         { index: true, element: <Home /> },
         { path: "/videos", element: <Videos /> },
         { path: "/videos/:videoId", element: <VideoDetail /> },
+        { path: "/videoplay/:id", element: <VideoPlay /> },
       ],
     },
   ]);
