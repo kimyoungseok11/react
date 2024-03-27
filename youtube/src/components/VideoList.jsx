@@ -8,6 +8,7 @@ const VideoList = (props) => {
   const handleClick = (id, videoInfo) => {
     navigater(`/videoplay/${id}`, { state: { video: videoInfo } });
   };
+  console.log(videoList);
   return (
     <div className="pt-[20px] border-box box-border">
       <div className="text-[#fff] mx-auto flex">
@@ -26,7 +27,11 @@ const VideoList = (props) => {
                 thumbnails={video.snippet.thumbnails.medium}
                 title={video.snippet.title}
                 channelTitle={video.snippet.channelTitle}
-                publishTime={video.snippet.publishTime}
+                publishTime={
+                  video.snippet.publishTime
+                    ? video.snippet.publishTime
+                    : video.snippet.publishedAt
+                }
               />
             </div>
           ))}

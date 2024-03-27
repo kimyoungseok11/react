@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { getApiKey } from "../api/youtube_api";
 import { useParams } from "react-router-dom";
 import VideoList from "../components/VideoList";
@@ -12,7 +12,7 @@ const VideoDetail = () => {
     error,
     data: videos,
   } = useQuery({
-    queryKey: ["videosDetail"],
+    queryKey: ["videosDetail", videoId],
     queryFn: async () => {
       return fetch(
         `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${videoId}&key=${apiKey}`
@@ -20,6 +20,9 @@ const VideoDetail = () => {
     },
     staleTime: 5000,
   });
+
+  console.log(videos);
+
   if (isLoading) {
     return <div className="w-[100%] h-[100%]">loading...</div>;
   }

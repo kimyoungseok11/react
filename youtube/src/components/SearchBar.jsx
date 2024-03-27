@@ -26,7 +26,7 @@ const SearchBar = () => {
             <img
               className="h-[100%] w-[100%]"
               alt="youtube"
-              src="assets/youtube-logo.png"
+              src="/assets/youtube-logo.png"
             />
           </Link>
         </div>

@@ -7,6 +7,22 @@ const VideoCard = (props) => {
   const diffMsec = today.getTime() - time.getTime();
   const diffDate = diffMsec / (24 * 60 * 60 * 1000);
   const diffHour = diffMsec / (60 * 60 * 1000);
+  const diffYear = diffDate / 365;
+  const diffMonth = diffDate / 30;
+  let pbTime;
+
+  if (diffDate >= 1) {
+    pbTime = `${diffDate.toString().split(".")[0]} Day ago`;
+  }
+  if (diffHour < 24) {
+    pbTime = `${diffHour.toString().split(".")[0]} Hour ago`;
+  }
+  if (diffMonth >= 1) {
+    pbTime = `${diffMonth.toString().split(".")[0]} Month ago`;
+  }
+  if (diffYear >= 1) {
+    pbTime = `${diffYear.toString().split(".")[0]} Year ago`;
+  }
 
   return (
     <div className={`w-[250px]`}>
@@ -16,9 +32,7 @@ const VideoCard = (props) => {
         <p className="text-xs pb-[2px] box-border text-[#908E92]">
           {channelTitle}
         </p>
-        <p className="text-xs pb-[5px] box-border text-[#908E92]">
-          {publishTime}
-        </p>
+        <p className="text-xs pb-[5px] box-border text-[#908E92]">{pbTime}</p>
       </div>
     </div>
   );
