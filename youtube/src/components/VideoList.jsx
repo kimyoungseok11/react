@@ -8,7 +8,7 @@ const VideoList = (props) => {
   const handleClick = (id, videoInfo) => {
     navigater(`/videoplay/${id}`, { state: { video: videoInfo } });
   };
-  console.log(videoList);
+
   return (
     <div className="pt-[20px] border-box box-border">
       <div className="text-[#fff] mx-auto flex">

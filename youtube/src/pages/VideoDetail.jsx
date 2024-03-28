@@ -1,27 +1,15 @@
 import React from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { getApiKey } from "../api/youtube_api";
 import { useParams } from "react-router-dom";
 import VideoList from "../components/VideoList";
+import useApiCall from "../hooks/use-apiCall";
 
 const VideoDetail = () => {
-  const apiKey = getApiKey();
   const { videoId } = useParams();
-  const {
-    isLoading,
-    error,
-    data: videos,
-  } = useQuery({
-    queryKey: ["videosDetail", videoId],
-    queryFn: async () => {
-      return fetch(
-        `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${videoId}&key=${apiKey}`
-      ).then((res) => res.json());
-    },
-    staleTime: 5000,
+  const urlParam = `search?part=snippet&maxResults=25&q=${videoId}`;
+  const [isLoading, error, videos] = useApiCall({
+    keys: ["videosDetail", videoId],
+    url: urlParam,
   });
-
-  console.log(videos);
 
   if (isLoading) {
     return <div className="w-[100%] h-[100%]">loading...</div>;

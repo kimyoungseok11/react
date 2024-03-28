@@ -1,22 +1,12 @@
 import React from "react";
-import { useQuery } from "@tanstack/react-query";
-import { getApiKey } from "../api/youtube_api";
 import VideoList from "../components/VideoList";
+import useApiCall from "../hooks/use-apiCall";
 
 const Home = () => {
-  const apiKey = getApiKey();
-  const {
-    isLoading,
-    error,
-    data: videos,
-  } = useQuery({
-    queryKey: ["videos"],
-    queryFn: async () => {
-      return fetch(
-        `https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&key=${apiKey}`
-      ).then((res) => res.json());
-    },
-    staleTime: 5000,
+  const urlParam = `videos?part=snippet&chart=mostPopular&maxResults=25`;
+  const [isLoading, error, videos] = useApiCall({
+    keys: ["videos"],
+    url: urlParam,
   });
 
   if (isLoading) {
