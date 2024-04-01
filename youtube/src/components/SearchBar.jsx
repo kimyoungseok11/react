@@ -18,7 +18,7 @@ const SearchBar = () => {
   return (
     <nav
       className=" 
-        border-b-[1px] border-[#55535D] pt-[30px] pb-[20px] box-border max-w-[1250px] mx-auto"
+        border-b-[1px] border-[#55535D] pt-[30px] pb-[20px] box-border max-w-[1250px] mx-auto mb-[20px] "
     >
       <div className="flex relative">
         <div className="h-[35px] w-[100px]">

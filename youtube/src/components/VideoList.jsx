@@ -1,18 +1,19 @@
 import React from "react";
 import VideoCard from "../components/VideoCard";
 import { useNavigate } from "react-router-dom";
+import RelateVideoCard from "./RelateVideoCard";
 
 const VideoList = (props) => {
-  const { videoList } = props;
+  const { videoList, relateVideo } = props;
   const navigater = useNavigate();
   const handleClick = (id, videoInfo) => {
     navigater(`/videoplay/${id}`, { state: { video: videoInfo } });
   };
 
   return (
-    <div className="pt-[20px] border-box box-border">
+    <div className="border-box box-border">
       <div className="text-[#fff] mx-auto flex">
-        <div className="w-[100%] max-w-[1400px] mx-auto flex justify-center flex-wrap">
+        <div className="w-[100%] mx-auto flex justify-center flex-wrap">
           {videoList.items.map((video, index) => (
             <div
               key={index}
@@ -23,16 +24,29 @@ const VideoList = (props) => {
                   : handleClick(video.id, video.snippet);
               }}
             >
-              <VideoCard
-                thumbnails={video.snippet.thumbnails.medium}
-                title={video.snippet.title}
-                channelTitle={video.snippet.channelTitle}
-                publishTime={
-                  video.snippet.publishTime
-                    ? video.snippet.publishTime
-                    : video.snippet.publishedAt
-                }
-              />
+              {!relateVideo ? (
+                <VideoCard
+                  thumbnails={video.snippet.thumbnails.medium}
+                  title={video.snippet.title}
+                  channelTitle={video.snippet.channelTitle}
+                  publishTime={
+                    video.snippet.publishTime
+                      ? video.snippet.publishTime
+                      : video.snippet.publishedAt
+                  }
+                />
+              ) : (
+                <RelateVideoCard
+                  thumbnails={video.snippet.thumbnails.default}
+                  title={video.snippet.title}
+                  channelTitle={video.snippet.channelTitle}
+                  publishTime={
+                    video.snippet.publishTime
+                      ? video.snippet.publishTime
+                      : video.snippet.publishedAt
+                  }
+                ></RelateVideoCard>
+              )}
             </div>
           ))}
         </div>

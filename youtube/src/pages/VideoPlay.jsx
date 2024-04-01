@@ -3,12 +3,15 @@ import { useParams, useLocation } from "react-router-dom";
 import Youtube from "react-youtube";
 import Linkify from "linkify-react";
 import useApiCall from "../hooks/use-apiCall";
+import VideoList from "../components/VideoList";
 
 const VideoPlay = () => {
   const { id } = useParams();
   const location = useLocation();
   const videoInfo = location.state;
-  const urlParam = `search?part=snippet&maxResults=25&q=${id}`;
+  const channelId = videoInfo.video.channelId;
+  const videoListUrlParam = `search?part=snippet&maxResults=25&q=${id}`;
+  const relateVideoUrlParam = `search?part=snippet&maxResults=10&channelId=${channelId}`;
   const opts = {
     youtubeOption: {
       height: "500px",
@@ -26,22 +29,27 @@ const VideoPlay = () => {
 
   const [isLoading, error, channelInfo] = useApiCall({
     keys: ["channelInfo"],
-    url: urlParam,
+    url: videoListUrlParam,
+  });
+
+  const [relateIsLoading, relateError, relateVideoInfo] = useApiCall({
+    keys: ["relateInfo", channelId],
+    url: relateVideoUrlParam,
   });
 
   const descriptions = videoInfo.video.description.split("\n");
 
-  if (isLoading) {
+  if (isLoading || relateIsLoading) {
     return <div className="w-[100%] h-[100%]">loading...</div>;
   }
-  if (error) {
+  if (error || relateError) {
     return <div className="w-[100%] h-[100%]">error...</div>;
   }
   return (
-    <div className="pt-[20px] border-box box-border">
+    <div>
       <div className="text-[#fff] mx-auto">
-        <div className="w-[100%] max-w-[1250px] mx-auto flex">
-          <div className="w-[800px]">
+        <div className="w-[100%] max-w-[1250px] mx-auto flex flex-wrap">
+          <div className="w-[800px] mr-[40px]">
             <Youtube videoId={id} opts={opts.youtubeOption} />
             <div className="mt-[20px] ml-[20px]">
               <div>
@@ -61,10 +69,6 @@ const VideoPlay = () => {
                 </div>
                 <div>
                   {descriptions.map((description, idx) => (
-                    // <span key={idx}>
-                    //   {description}
-                    //   <br />
-                    // </span>
                     <Linkify key={idx} as="p" options={opts.linkifyOption}>
                       {description}
                       <br />
@@ -73,6 +77,13 @@ const VideoPlay = () => {
                 </div>
               </div>
             </div>
+          </div>
+          <div className="w-[400px]">
+            {console.log(relateVideoInfo.items)}
+            <VideoList
+              videoList={relateVideoInfo}
+              relateVideo={true}
+            ></VideoList>
           </div>
         </div>
       </div>
