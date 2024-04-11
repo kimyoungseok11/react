@@ -24,8 +24,12 @@ const RelateVideoCard = (props) => {
     pbTime = `${diffYear.toString().split(".")[0]} Year ago`;
   }
   return (
-    <div className="w-[400px] flex mb-[20px]">
-      <img src={thumbnails.url} className="mr-[20px]"></img>
+    <div className="w-[100%] flex mb-[10px]">
+      <img
+        src={thumbnails.url}
+        className="mr-[20px] h-[90px]"
+        alt="thumbnail"
+      ></img>
       <div className="box-border">
         <p className="text-sm pb-[5px] box-border font-semibold">{title}</p>
         <p className="text-xs pb-[2px] box-border text-[#908E92]">

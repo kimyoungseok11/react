@@ -18,7 +18,7 @@ const SearchBar = () => {
   return (
     <nav
       className=" 
-        border-b-[1px] border-[#55535D] pt-[30px] pb-[20px] box-border max-w-[1250px] mx-auto mb-[20px] "
+        border-b-[1px] border-[#55535D] pt-[30px] pb-[20px] box-border xl:max-w-[1250px] lg:max-w-[900px] md:max-w-[750px] sm:max-w-[500px] w-[100%] mx-auto mb-[20px] "
     >
       <div className="flex relative">
         <div className="h-[35px] w-[100px]">
@@ -32,7 +32,7 @@ const SearchBar = () => {
         </div>
         <form
           onSubmit={handleSubmit}
-          className="w-[500px] h-[35px] flex absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
+          className="w-[50%] h-[35px] flex absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
         >
           <input
             className="bg-[#000] w-[calc(100%-35px)] h-[100%] border-none outline-none text-[#fff] pl-[10px]"

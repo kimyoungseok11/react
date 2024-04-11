@@ -48,8 +48,8 @@ const VideoPlay = () => {
   return (
     <div>
       <div className="text-[#fff] mx-auto">
-        <div className="w-[100%] max-w-[1250px] mx-auto flex flex-wrap">
-          <div className="w-[800px] mr-[40px]">
+        <div className="w-[100%] max-w-[1250px] mx-auto flex flex-wrap sm:justify-center">
+          <div className="w-[60%] mr-[40px]">
             <Youtube videoId={id} opts={opts.youtubeOption} />
             <div className="mt-[20px] ml-[20px]">
               <div>
@@ -61,15 +61,16 @@ const VideoPlay = () => {
                     <img
                       src={channelInfo.items[0].snippet.thumbnails.default.url}
                       className="rounded-full"
+                      alt="channelImg"
                     />
                   </div>
                   <div className="font-bold">
                     {videoInfo.video.channelTitle}
                   </div>
                 </div>
-                <div>
+                <div className="text-overflow: ellipsis mb-[30px]">
                   {descriptions.map((description, idx) => (
-                    <Linkify key={idx} as="p" options={opts.linkifyOption}>
+                    <Linkify key={idx} options={opts.linkifyOption}>
                       {description}
                       <br />
                     </Linkify>
@@ -78,8 +79,7 @@ const VideoPlay = () => {
               </div>
             </div>
           </div>
-          <div className="w-[400px]">
-            {console.log(relateVideoInfo.items)}
+          <div className="w-[35%] sm:w-[400px]">
             <VideoList
               videoList={relateVideoInfo}
               relateVideo={true}
