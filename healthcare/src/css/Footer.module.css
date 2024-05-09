@@ -1,0 +1,12 @@
+.footer {
+  padding: 3.2rem 0;
+  font-size: 12px;
+  color: rgb(112, 112, 112);
+  text-align: center;
+  border-top: 1px solid rgb(233, 233, 233);
+}
+
+.footer b {
+  font-weight: 500;
+  color: rgb(0, 171, 110);
+}

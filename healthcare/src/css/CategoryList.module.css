@@ -1,0 +1,40 @@
+.categoryList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.categoryList .categoryWrap {
+  padding-bottom: 2rem;
+}
+
+.categoryList .categoryWrap ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1.2rem;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.categoryList .categoryWrap ul li {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.categoryList .categoryWrap ul li input {
+  display: none;
+}
+
+.categoryList .categoryWrap ul li label {
+  padding: 0.4rem 1rem;
+  border: 1px solid rgb(194, 194, 194);
+  border-radius: 100px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.categoryList .categoryWrap ul li label:hover {
+  border-color: rgb(0, 207, 133);
+}

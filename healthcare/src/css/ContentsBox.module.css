@@ -1,0 +1,12 @@
+.contentsBox {
+  width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 4rem;
+}
+.content {
+  padding-top: 2rem;
+  border-bottom: 2px solid rgb(233, 233, 233);
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
