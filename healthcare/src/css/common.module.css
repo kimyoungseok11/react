@@ -23,3 +23,11 @@
   -ms-flex-pack: justify;
   justify-content: space-between;
 }
+
+button,
+select {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0px;
+}

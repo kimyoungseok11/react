@@ -12,7 +12,7 @@ const Recommend = () => {
 
   return (
     <Fragment>
-      <h2 class={common.title}>헬스케어 기능 식물 검색 및 추천</h2>
+      <h2 className={common.title}>헬스케어 기능 식물 검색 및 추천</h2>
       <ContentsBox text={`검색할 식물의 유형을 선택해 주세요.`}>
         <CategoryList lists={categoryList}></CategoryList>
       </ContentsBox>

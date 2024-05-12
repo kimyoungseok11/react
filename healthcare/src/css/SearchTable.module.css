@@ -6,7 +6,7 @@
   border-top: 1px solid rgb(233, 233, 233);
 }
 
-table tbody tr {
+.searchZone table tbody tr {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -14,8 +14,21 @@ table tbody tr {
 }
 
 .searchZone table tbody tr th {
-  width: 17.2rem;
+  width: 13.2rem;
   background-color: rgb(248, 248, 248);
   text-align: left;
   font-weight: 500;
+}
+.searchZone table tbody tr th,
+.searchZone table tbody tr td {
+  padding: 1rem;
+}
+
+.searchZone table tbody tr td input[type="checkbox"] {
+  display: none;
+}
+
+.searchZone table tbody tr td label {
+  cursor: pointer;
+  color: rgb(66, 66, 66);
 }

@@ -1,0 +1,5 @@
+.resetBtn {
+  -ms-flex-item-align: end;
+  align-self: flex-end;
+  padding-bottom: 2rem;
+}
