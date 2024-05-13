@@ -27,6 +27,9 @@
 .searchZone table tbody tr td input[type="checkbox"] {
   display: none;
 }
+.searchZone table tbody tr td input[type="checkbox"]:checked + label {
+  color: rgb(0, 171, 110);
+}
 
 .searchZone table tbody tr td label {
   cursor: pointer;

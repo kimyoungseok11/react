@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import common from "../css/common.module.css";
-import style from "../css/CategoryList.module.css";
 import ResetBtn from "./ResetBtn";
 
 const CategoryList = (props) => {
@@ -9,8 +8,8 @@ const CategoryList = (props) => {
     console.log(e.target.name);
   };
   return (
-    <div className={`${common.content} ${style.categoryList}`}>
-      <div className={style.categoryWrap}>
+    <div className={`${common.content} ${common.categoryList}`}>
+      <div className={common.categoryWrap}>
         <ul>
           {props.lists.map((list) => (
             <li key={list.id}>
