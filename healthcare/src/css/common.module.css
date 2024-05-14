@@ -185,6 +185,13 @@ select {
   cursor: pointer;
 }
 
+.categoryList .categoryWrap ul li input:checked + label {
+  border-color: rgb(0, 140, 94);
+  color: rgb(0, 140, 94);
+  background-color: rgb(236, 255, 243);
+  font-weight: 500;
+}
+
 .categoryList .categoryWrap ul li label:hover {
   border-color: rgb(0, 207, 133);
 }
@@ -210,4 +217,29 @@ select {
   -ms-flex-align: center;
   align-items: center;
   gap: 0.8rem;
+}
+
+.SearchBtn,
+.ButtonSection .NextBtn,
+.ContentsWrap .ContentBox .SearchBtn,
+.ButtonSection .SubmitBtn {
+  width: 11.8rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: 1px solid rgb(0, 171, 110);
+  border-radius: 0.4rem;
+  padding: 0.5rem;
+  gap: 0.4rem;
+  margin-left: auto;
+  margin-top: 1.2rem;
+  font-size: 16px;
+  background-color: rgb(0, 207, 133);
+  color: rgb(255, 255, 255);
 }

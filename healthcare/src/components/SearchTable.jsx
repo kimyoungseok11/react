@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import style from "../css/SearchTable.module.css";
 import common from "../css/common.module.css";
 import ResetBtn from "./ResetBtn";
 import { RiCloseLargeLine } from "react-icons/ri";
+import { RecommendContext } from "../contexts/RecommendContext";
 
 const SearchTable = (props) => {
   const tablelines = props.lists.lines;
   const [selectList, setSelectList] = useState([]);
   const [checkedList, setCheckedList] = useState([]);
+  const { recommendItem, changeRecommendItem } = useContext(RecommendContext);
 
   //테이블 항목 누를 시 해시태그 생성
   const categoryClick = (e) => {
@@ -19,12 +21,21 @@ const SearchTable = (props) => {
     if (isChecked) {
       setSelectList([...selectList, { hashId, hashClass, hashText }]);
       setCheckedList([...checkedList, hashId]);
+      changeRecommendItem(hashClass, hashText);
     } else {
       const newArray = selectList.filter((select) => {
+        console.log(select.hashId, hashId);
         return select.hashId !== hashId;
       });
+      const newCheckArray = selectList.filter((select) => {
+        return select.hashId !== e.target.id;
+      });
+
       setSelectList(newArray);
+      setCheckedList(newCheckArray);
     }
+
+    console.log(selectList, recommendItem);
   };
 
   //해쉬태그 x버튼 클릭
@@ -56,7 +67,7 @@ const SearchTable = (props) => {
                     type="checkbox"
                     id={td.id}
                     name={td.name}
-                    value={td.text}
+                    value={td.value}
                     checked={checkedList.includes(td.id)}
                     onChange={(e) => {
                       categoryClick(e);

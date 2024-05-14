@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import common from "../css/common.module.css";
 import ResetBtn from "./ResetBtn";
+import { RecommendContext } from "../contexts/RecommendContext";
 
 const CategoryList = (props) => {
   const [selectList, setSelectList] = useState([]);
+  const { recommendItem, changeRecommendItem } = useContext(RecommendContext);
   const categoryClick = (e) => {
-    console.log(e.target.name);
+    const name = e.target.name;
+    const value = e.target.value;
+    changeRecommendItem(name, value);
   };
   return (
     <div className={`${common.content} ${common.categoryList}`}>
