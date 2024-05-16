@@ -35,3 +35,10 @@
   cursor: pointer;
   color: rgb(66, 66, 66);
 }
+
+.xButton {
+  width: 11px;
+  height: 11px;
+  display: flex;
+  align-items: center;
+}

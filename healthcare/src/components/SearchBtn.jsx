@@ -9,7 +9,7 @@ const SearchBtn = () => {
   const { changeDetailData } = useContext(PlantDetailContext);
 
   const btnClick = async () => {
-    const fetchData = await callData(recommendItem);
+    const fetchData = await callData(recommendItem, 1);
     changeDetailData(fetchData);
   };
 

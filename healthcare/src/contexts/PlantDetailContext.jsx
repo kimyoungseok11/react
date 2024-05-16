@@ -7,7 +7,6 @@ export function PlantDetailProvider({ children }) {
 
   const changeDetailData = (data) => {
     setDetailData(data);
-    console.log(detailData);
   };
   return (
     <PlantDetailContext.Provider value={{ detailData, changeDetailData }}>

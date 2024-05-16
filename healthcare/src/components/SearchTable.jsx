@@ -15,43 +15,44 @@ const SearchTable = (props) => {
   const categoryClick = (e) => {
     const hashId = e.target.id;
     const hashClass = e.target.name;
-    const hashText = e.target.value;
+    const hashValue = e.target.value;
+    const hashText = e.target.placeholder;
     const isChecked = e.target.checked;
 
     if (isChecked) {
-      setSelectList([...selectList, { hashId, hashClass, hashText }]);
+      setSelectList([
+        ...selectList,
+        { hashId, hashClass, hashValue, hashText },
+      ]);
       setCheckedList([...checkedList, hashId]);
-      changeRecommendItem(hashClass, hashText);
+      changeRecommendItem(hashClass, hashValue);
     } else {
       const newArray = selectList.filter((select) => {
-        console.log(select.hashId, hashId);
         return select.hashId !== hashId;
       });
-      const newCheckArray = selectList.filter((select) => {
-        return select.hashId !== e.target.id;
+      const newCheckArray = checkedList.filter((checkedItem) => {
+        return checkedItem !== hashId;
       });
 
       setSelectList(newArray);
       setCheckedList(newCheckArray);
+      changeRecommendItem(hashClass, hashValue);
     }
-
-    console.log(selectList, recommendItem);
   };
 
   //해쉬태그 x버튼 클릭
   const xBtnClick = (e) => {
     const newArray = selectList.filter((select) => {
-      return select.hashId !== e.target.id;
+      return select.hashId !== e.currentTarget.id;
     });
 
-    const newCheckArray = selectList.filter((select) => {
-      return select.hashId !== e.target.id;
+    const newCheckArray = checkedList.filter((checkedItem) => {
+      return checkedItem !== e.currentTarget.id;
     });
 
     setSelectList(newArray);
     setCheckedList(newCheckArray);
-
-    console.log(checkedList);
+    changeRecommendItem(e.currentTarget.name, e.currentTarget.value);
   };
 
   return (
@@ -68,6 +69,7 @@ const SearchTable = (props) => {
                     id={td.id}
                     name={td.name}
                     value={td.value}
+                    placeholder={td.text}
                     checked={checkedList.includes(td.id)}
                     onChange={(e) => {
                       categoryClick(e);
@@ -92,14 +94,16 @@ const SearchTable = (props) => {
               >
                 {select.hashText}
                 <button
-                  type="button"
+                  className={style.xButton}
                   id={select.hashId}
+                  name={select.hashClass}
+                  value={select.hashValue}
                   onClick={(e) => xBtnClick(e)}
                 >
                   <RiCloseLargeLine
-                    id={select.hashId}
-                    onClick={(e) => xBtnClick(e)}
                     color="#424242"
+                    width="11px"
+                    height="11px"
                   />
                 </button>
               </li>
