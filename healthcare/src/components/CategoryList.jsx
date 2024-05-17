@@ -1,16 +1,26 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import common from "../css/common.module.css";
 import ResetBtn from "./ResetBtn";
 import { RecommendContext } from "../contexts/RecommendContext";
 
 const CategoryList = (props) => {
-  const [selectList, setSelectList] = useState([]);
-  const { recommendItem, changeRecommendItem } = useContext(RecommendContext);
+  const { changeRecommendItem } = useContext(RecommendContext);
   const categoryClick = (e) => {
     const name = e.target.name;
     const value = e.target.value;
+
     changeRecommendItem(name, value);
   };
+
+  //리셋 버튼 누를 시 초기화 할 항목
+  const resetList = [
+    ...new Set(
+      props.lists.map((list) => {
+        return list.name;
+      })
+    ),
+  ];
+
   return (
     <div className={`${common.content} ${common.categoryList}`}>
       <div className={common.categoryWrap}>
@@ -19,7 +29,7 @@ const CategoryList = (props) => {
             <li key={list.id}>
               <input
                 id={list.id}
-                type="radio"
+                type={list.type}
                 name={list.name}
                 value={list.value}
                 onClick={(e) => {
@@ -31,7 +41,7 @@ const CategoryList = (props) => {
           ))}
         </ul>
       </div>
-      <ResetBtn />
+      <ResetBtn resetList={resetList} />
     </div>
   );
 };

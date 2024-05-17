@@ -12,13 +12,13 @@ export function RecommendProvider({ children }) {
     recommendedPlaceArr: [],
     smellCode: "",
   });
+
+  const [hashList, setHashList] = useState([]);
+
   const changeRecommendItem = (name, value) => {
     if (typeof recommendItem[name] !== "string") {
       if (!recommendItem[name].includes(value)) {
-        const newArray =
-          value !== "휘발성유기화합물"
-            ? [...recommendItem[name], value]
-            : [...recommendItem[name], "톨루엔제거,자일렌제거"];
+        const newArray = [...recommendItem[name], value];
         setRecommendItem({ ...recommendItem, [name]: newArray });
       } else {
         const newArray = recommendItem[name].filter((item) => {
@@ -31,8 +31,34 @@ export function RecommendProvider({ children }) {
     }
   };
 
+  const resetRecommendItem = (resetList) => {
+    let newArray = { ...recommendItem };
+    resetList.forEach((name) => {
+      if (typeof newArray[name] !== "string") {
+        newArray = { ...newArray, [name]: [] };
+      } else {
+        newArray = { ...newArray, [name]: "" };
+      }
+    });
+    setRecommendItem(newArray);
+    setHashList([]);
+  };
+
+  const changeHashList = (hashArray) => {
+    let newArray = [...hashArray];
+    setHashList(newArray);
+  };
+
   return (
-    <RecommendContext.Provider value={{ recommendItem, changeRecommendItem }}>
+    <RecommendContext.Provider
+      value={{
+        recommendItem,
+        hashList,
+        changeRecommendItem,
+        resetRecommendItem,
+        changeHashList,
+      }}
+    >
       {children}
     </RecommendContext.Provider>
   );

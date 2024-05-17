@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import style from "../css/SearchTable.module.css";
 import common from "../css/common.module.css";
 import ResetBtn from "./ResetBtn";
@@ -7,9 +7,23 @@ import { RecommendContext } from "../contexts/RecommendContext";
 
 const SearchTable = (props) => {
   const tablelines = props.lists.lines;
-  const [selectList, setSelectList] = useState([]);
-  const [checkedList, setCheckedList] = useState([]);
-  const { recommendItem, changeRecommendItem } = useContext(RecommendContext);
+  const { recommendItem, changeRecommendItem, hashList, changeHashList } =
+    useContext(RecommendContext);
+  const [resetList, setResetList] = useState([]); //리셋 버튼 초기화
+
+  //리셋 버튼 누를 시 초기화 항목 배열 생성
+  useEffect(() => {
+    const tmpArray = [];
+    for (let i = 0; i < tablelines.length; i++) {
+      for (let j = 0; j < tablelines[i].tds.length; j++) {
+        const name = tablelines[i].tds[j].name;
+        if (name.indexOf("all") !== 0 && !tmpArray.includes(name)) {
+          tmpArray.push(name);
+        }
+      }
+    }
+    setResetList(tmpArray);
+  }, []);
 
   //테이블 항목 누를 시 해시태그 생성
   const categoryClick = (e) => {
@@ -20,38 +34,28 @@ const SearchTable = (props) => {
     const isChecked = e.target.checked;
 
     if (isChecked) {
-      setSelectList([
-        ...selectList,
+      const newArray = [
+        ...hashList,
         { hashId, hashClass, hashValue, hashText },
-      ]);
-      setCheckedList([...checkedList, hashId]);
+      ];
+      changeHashList(newArray);
       changeRecommendItem(hashClass, hashValue);
     } else {
-      const newArray = selectList.filter((select) => {
+      const newArray = hashList.filter((select) => {
         return select.hashId !== hashId;
       });
-      const newCheckArray = checkedList.filter((checkedItem) => {
-        return checkedItem !== hashId;
-      });
-
-      setSelectList(newArray);
-      setCheckedList(newCheckArray);
+      changeHashList(newArray);
       changeRecommendItem(hashClass, hashValue);
     }
   };
 
   //해쉬태그 x버튼 클릭
   const xBtnClick = (e) => {
-    const newArray = selectList.filter((select) => {
+    const newArray = hashList.filter((select) => {
       return select.hashId !== e.currentTarget.id;
     });
 
-    const newCheckArray = checkedList.filter((checkedItem) => {
-      return checkedItem !== e.currentTarget.id;
-    });
-
-    setSelectList(newArray);
-    setCheckedList(newCheckArray);
+    changeHashList(newArray);
     changeRecommendItem(e.currentTarget.name, e.currentTarget.value);
   };
 
@@ -70,7 +74,10 @@ const SearchTable = (props) => {
                     name={td.name}
                     value={td.value}
                     placeholder={td.text}
-                    checked={checkedList.includes(td.id)}
+                    checked={
+                      recommendItem?.[td.name] &&
+                      recommendItem[td.name].includes(td.value)
+                    }
                     onChange={(e) => {
                       categoryClick(e);
                     }}
@@ -85,7 +92,7 @@ const SearchTable = (props) => {
       <div className={`${common.content} ${common.categoryList}`}>
         <div className={common.categoryWrap}>
           <ul className={common.categoryChecked}>
-            {selectList.map((select, idx) => (
+            {hashList.map((select, idx) => (
               <li
                 key={idx}
                 id={`hash${select.hashId}`}
@@ -110,7 +117,7 @@ const SearchTable = (props) => {
             ))}
           </ul>
         </div>
-        <ResetBtn />
+        <ResetBtn resetList={resetList} />
       </div>
     </div>
   );

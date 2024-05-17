@@ -12,20 +12,36 @@ const PlantDetail = () => {
   const plantlist = detailData.list;
   const totalCount = detailData.total;
   const totalPage = Math.ceil(totalCount / 16); //총 페이지 개수
+  const showPageNum = 10;
   const [loading, isLoading] = useState(true);
   const [targetPage, setTargetPage] = useState(1);
-
+  const [pageArr, setPageArr] = useState([]);
   const paging = async (page) => {
+    console.log(page);
     const fetchData = await callData(recommendItem, page);
     changeDetailData(fetchData);
+  };
+
+  const movePrevPage = () => {
+    if (targetPage !== 1) {
+      paging(targetPage - 1);
+      setTargetPage(targetPage - 1);
+    }
+  };
+  const moveNextPage = () => {
+    if (targetPage !== totalPage) {
+      paging(targetPage + 1);
+      setTargetPage(targetPage + 1);
+    }
   };
 
   useEffect(() => {
     if (Object.keys(detailData).length !== 0) {
       isLoading(false);
+      setPageArr(Array.from({ length: totalPage }, (v, i) => i + 1));
     }
-    console.log(detailData);
   }, [detailData]);
+
   return (
     <div className={`${common.content}`}>
       {loading ? (
@@ -44,7 +60,10 @@ const PlantDetail = () => {
                 {plantlist.map((plant, idx) => (
                   <li key={idx}>
                     <button>
-                      <img src={`/images/plant/${plant.id}.jpg`} />
+                      <img
+                        src={`/images/plant/${plant.id}.jpg`}
+                        alt={plant.plantKorNm}
+                      />
                     </button>
                     <input
                       type="hidden"
@@ -59,45 +78,30 @@ const PlantDetail = () => {
             <div className={style.pagination}>
               <ul id="viewPagingUl">
                 <li>
-                  <IoIosArrowBack />
+                  <IoIosArrowBack
+                    onClick={() => {
+                      movePrevPage();
+                    }}
+                  />
                 </li>
-                <li
-                  onClick={() => {
-                    paging(1);
-                  }}
-                >
-                  1
-                </li>
-                <li
-                  onClick={() => {
-                    paging(2);
-                  }}
-                >
-                  2
-                </li>
-                <li
-                  onClick={() => {
-                    paging(3);
-                  }}
-                >
-                  3
-                </li>
-                <li
-                  onClick={() => {
-                    paging(4);
-                  }}
-                >
-                  4
-                </li>
-                <li
-                  onClick={() => {
-                    paging(5);
-                  }}
-                >
-                  5
-                </li>
+                {pageArr.map((page, idx) => (
+                  <li
+                    className={page === targetPage ? style.active : ""}
+                    key={idx}
+                    onClick={() => {
+                      paging(page);
+                      setTargetPage(page);
+                    }}
+                  >
+                    {page}
+                  </li>
+                ))}
                 <li>
-                  <IoIosArrowForward />
+                  <IoIosArrowForward
+                    onClick={() => {
+                      moveNextPage();
+                    }}
+                  />
                 </li>
               </ul>
             </div>

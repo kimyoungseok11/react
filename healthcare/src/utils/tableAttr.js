@@ -13,7 +13,7 @@ export const tableOption = {
           {
             id: "volatilityRemoval",
             name: "removalMaterialArr",
-            value: "휘발성유기화합물",
+            value: "톨루엔제거,자일렌제거",
             text: "휘발성유기화합물",
           },
           {

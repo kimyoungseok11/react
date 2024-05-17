@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import style from "../css/ResetBtn.module.css";
+import { RecommendContext } from "../contexts/RecommendContext";
 
-const ResetBtn = () => {
+const ResetBtn = (props) => {
+  const { resetRecommendItem } = useContext(RecommendContext);
+  const resetList = props.resetList;
+  const resetBtnClick = (resetList) => {
+    resetRecommendItem(resetList);
+  };
+
   return (
-    <button className={style.resetBtn}>
+    <button
+      className={style.resetBtn}
+      onClick={() => {
+        resetBtnClick(resetList);
+      }}
+    >
       <svg width="26" height="26">
         <g transform="translate(-1513 -297)">
           <path

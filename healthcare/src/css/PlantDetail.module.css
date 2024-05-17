@@ -82,3 +82,8 @@
   font-size: 14px;
   cursor: pointer;
 }
+
+.searchResultsWrap .pagination ul li.active {
+  background-color: rgb(194, 240, 217);
+  border-radius: 0.4rem;
+}
