@@ -3,10 +3,11 @@ import style from "../css/ResetBtn.module.css";
 import { RecommendContext } from "../contexts/RecommendContext";
 
 const ResetBtn = (props) => {
-  const { resetRecommendItem } = useContext(RecommendContext);
+  const { resetItem } = useContext(RecommendContext);
   const resetList = props.resetList;
   const resetBtnClick = (resetList) => {
-    resetRecommendItem(resetList);
+    console.log(resetList);
+    resetItem(resetList);
   };
 
   return (

@@ -1,15 +1,15 @@
 import React, { useContext } from "react";
 import common from "../css/common.module.css";
 import ResetBtn from "./ResetBtn";
-import { RecommendContext } from "../contexts/RecommendContext";
 
 const CategoryList = (props) => {
-  const { changeRecommendItem } = useContext(RecommendContext);
+  console.log(props.context);
+  const { contextItem, changeItem } = useContext(props.context);
   const categoryClick = (e) => {
     const name = e.target.name;
     const value = e.target.value;
 
-    changeRecommendItem(name, value);
+    changeItem(name, value);
   };
 
   //리셋 버튼 누를 시 초기화 할 항목
@@ -32,7 +32,11 @@ const CategoryList = (props) => {
                 type={list.type}
                 name={list.name}
                 value={list.value}
-                onClick={(e) => {
+                checked={
+                  contextItem?.[list.name] &&
+                  contextItem[list.name].includes(list.value)
+                }
+                onChange={(e) => {
                   categoryClick(e);
                 }}
               ></input>

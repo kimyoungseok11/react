@@ -6,7 +6,10 @@ import SearchTable from "../components/SearchTable";
 import SearchBtn from "../components/SearchBtn";
 import { category } from "../utils/categoryAttr";
 import { tableOption } from "../utils/tableAttr";
-import { RecommendProvider } from "../contexts/RecommendContext";
+import {
+  RecommendProvider,
+  RecommendContext,
+} from "../contexts/RecommendContext";
 import { PlantDetailProvider } from "../contexts/PlantDetailContext";
 import PlantDetail from "../components/PlantDetail";
 
@@ -20,10 +23,16 @@ const Recommend = () => {
       <RecommendProvider>
         <PlantDetailProvider>
           <ContentsBox text={`검색할 식물의 유형을 선택해 주세요.`}>
-            <CategoryList lists={categoryList}></CategoryList>
+            <CategoryList
+              lists={categoryList}
+              context={RecommendContext}
+            ></CategoryList>
           </ContentsBox>
           <ContentsBox text={`검색할 식물의 속성을 선택해 주세요.`}>
-            <SearchTable lists={tableList}></SearchTable>
+            <SearchTable
+              lists={tableList}
+              context={RecommendContext}
+            ></SearchTable>
             <SearchBtn />
           </ContentsBox>
           <PlantDetail />

@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 
-export const RecommendContext = createContext();
-export function RecommendProvider({ children }) {
+export const BuyContext = createContext();
+export function BuyProvider({ children }) {
   const [contextItem, setContextItem] = useState({
     grwhstleCodeNmArr: [],
     managelevelCode: "",
@@ -24,11 +24,7 @@ export function RecommendProvider({ children }) {
         if (value === "전체") {
           //전체 항목을 클릭
           setContextItem({ ...contextItem, [name]: [value] });
-          setHashList(
-            hashList.filter((list) => {
-              return list.hashClass !== name;
-            })
-          );
+          setHashList([]);
         } else {
           //전체 항목 이외의 항목을 클릭
           const newArray = [...contextItem[name], value].filter((item) => {
@@ -69,16 +65,10 @@ export function RecommendProvider({ children }) {
   };
 
   return (
-    <RecommendContext.Provider
-      value={{
-        contextItem,
-        hashList,
-        changeItem,
-        resetItem,
-        changeHashList,
-      }}
+    <BuyContext.Provider
+      value={{ contextItem, hashList, changeItem, resetItem, changeHashList }}
     >
       {children}
-    </RecommendContext.Provider>
+    </BuyContext.Provider>
   );
 }
