@@ -3,8 +3,7 @@ import common from "../css/common.module.css";
 import ResetBtn from "./ResetBtn";
 
 const CategoryList = (props) => {
-  console.log(props.context);
-  const { contextItem, changeItem } = useContext(props.context);
+  const { contextItem, changeItem, resetItem } = useContext(props.context);
   const categoryClick = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -45,7 +44,7 @@ const CategoryList = (props) => {
           ))}
         </ul>
       </div>
-      <ResetBtn resetList={resetList} />
+      <ResetBtn resetList={resetList} resetItem={resetItem} />
     </div>
   );
 };

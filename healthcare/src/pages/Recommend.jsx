@@ -33,7 +33,7 @@ const Recommend = () => {
               lists={tableList}
               context={RecommendContext}
             ></SearchTable>
-            <SearchBtn />
+            <SearchBtn context={RecommendContext} />
           </ContentsBox>
           <PlantDetail />
         </PlantDetailProvider>

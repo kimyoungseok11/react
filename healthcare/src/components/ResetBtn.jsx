@@ -1,12 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import style from "../css/ResetBtn.module.css";
-import { RecommendContext } from "../contexts/RecommendContext";
 
 const ResetBtn = (props) => {
-  const { resetItem } = useContext(RecommendContext);
-  const resetList = props.resetList;
+  const { resetList, resetItem } = props;
   const resetBtnClick = (resetList) => {
-    console.log(resetList);
     resetItem(resetList);
   };
 

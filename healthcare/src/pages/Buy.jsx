@@ -4,19 +4,32 @@ import ContentsBox from "../components/ContentsBox";
 import CategoryList from "../components/CategoryList";
 import { category } from "../utils/categoryAttr";
 import { BuyProvider, BuyContext } from "../contexts/BuyContext";
+import { tableOption } from "../utils/tableAttr";
+import SearchTable from "../components/SearchTable";
+import SearchBtn from "../components/SearchBtn";
+import { PlantDetailProvider } from "../contexts/PlantDetailContext";
+import PlantDetail from "../components/PlantDetail";
 
 const Buy = () => {
   const categoryList = category.buy.categories;
+  const tableList = tableOption.buy;
+
   return (
     <Fragment>
+      <h2 className={common.title}>헬스케어 기능 식물 구매</h2>
       <BuyProvider>
-        <h2 className={common.title}>헬스케어 기능 식물 검색 및 추천</h2>
-        <ContentsBox text={`검색할 식물의 유형을 선택해 주세요.`}>
-          <CategoryList
-            lists={categoryList}
-            context={BuyContext}
-          ></CategoryList>
-        </ContentsBox>
+        <PlantDetailProvider>
+          <ContentsBox text={`구매할 식물의 유형을 선택해 주세요.`}>
+            <CategoryList
+              lists={categoryList}
+              context={BuyContext}
+            ></CategoryList>
+          </ContentsBox>
+          <ContentsBox text={`구매할 식물의 속성을 선택해 주세요.`}>
+            <SearchTable lists={tableList} context={BuyContext}></SearchTable>
+            <SearchBtn context={BuyContext} />
+          </ContentsBox>
+        </PlantDetailProvider>
       </BuyProvider>
     </Fragment>
   );

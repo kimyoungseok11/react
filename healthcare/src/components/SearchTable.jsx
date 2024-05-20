@@ -5,11 +5,9 @@ import ResetBtn from "./ResetBtn";
 import { RiCloseLargeLine } from "react-icons/ri";
 
 const SearchTable = (props) => {
-  console.log(props);
   const tableLines = props.lists.lines;
-  const { contextItem, changeItem, hashList, changeHashList } = useContext(
-    props.context
-  );
+  const { contextItem, changeItem, hashList, changeHashList, resetItem } =
+    useContext(props.context);
   const [resetList, setResetList] = useState([]); //리셋 버튼 초기화
 
   //리셋 할 항목 배열 생성
@@ -118,7 +116,7 @@ const SearchTable = (props) => {
             ))}
           </ul>
         </div>
-        <ResetBtn resetList={resetList} />
+        <ResetBtn resetList={resetList} resetItem={resetItem} />
       </div>
     </div>
   );

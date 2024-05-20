@@ -1,15 +1,14 @@
 import React, { useContext } from "react";
 import common from "../css/common.module.css";
-import { RecommendContext } from "../contexts/RecommendContext";
 import { PlantDetailContext } from "../contexts/PlantDetailContext";
 import { callData } from "../utils/apiCall";
 
-const SearchBtn = () => {
-  const { recommendItem } = useContext(RecommendContext);
+const SearchBtn = (props) => {
+  const { contextItem } = useContext(props.context);
   const { changeDetailData } = useContext(PlantDetailContext);
 
   const btnClick = async () => {
-    const fetchData = await callData(recommendItem, 1);
+    const fetchData = await callData(contextItem, 1);
     changeDetailData(fetchData);
   };
 
