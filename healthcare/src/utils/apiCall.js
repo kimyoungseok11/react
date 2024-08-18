@@ -1,14 +1,16 @@
 import axios from "axios";
 
+const baseUrl = "http://localhost:8084";
+
 export const callData = async (item, page) => {
   const param = { ...item, currentPage: page };
   console.log(param);
   try {
     const response = await axios.post(
-      "http://localhost:8084/healthcare_war/recommend/search.do",
+      `${baseUrl}/healthcare/recommend/search.do`,
       param
     );
-
+    console.log(response);
     return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -20,7 +22,7 @@ export const callDetailData = async (plantId) => {
   console.log(param);
   try {
     const response = await axios.post(
-      "http://localhost:8084/healthcare_war/recommend/detailSearch.do",
+      `${baseUrl}/healthcare/recommend/detailSearch.do`,
       param
     );
 
