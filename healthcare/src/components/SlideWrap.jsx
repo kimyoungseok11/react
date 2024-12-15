@@ -1,7 +1,13 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { callSurveyList } from "../utils/apiCall";
+import SlideComponent from "./SlideComponent";
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+
 import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 
 const SlideWrap = () => {
   const [question, setQuestion] = useState();
@@ -21,9 +27,25 @@ const SlideWrap = () => {
     return <>로딩..</>;
   } else if (question && subQuestion) {
     return (
-      <Fragment>
-        <Swiper>{console.log(question)}</Swiper>
-      </Fragment>
+      <Swiper
+        spaceBetween={50}
+        slidesPerView={1}
+        onSlideChange={() => console.log("slide change")}
+        onSwiper={(swiper) => console.log(swiper)}
+        modules={[Navigation, Pagination, Scrollbar, A11y]}
+        className="mySwiper"
+        pagination={{ clickable: true }}
+      >
+        {question.map((data, idx) => (
+          <SwiperSlide key={idx}>
+            <SlideComponent
+              data={data}
+              subQdata={subQuestion}
+              key={idx}
+            ></SlideComponent>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     );
   }
 };
