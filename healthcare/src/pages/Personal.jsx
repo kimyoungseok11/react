@@ -1,7 +1,12 @@
-import React from "react";
+import React, { Fragment, useEffect } from "react";
+import SlideWrap from "../components/SlideWrap";
 
 const Personal = () => {
-  return <div>personal</div>;
+  return (
+    <Fragment>
+      <SlideWrap></SlideWrap>
+    </Fragment>
+  );
 };
 
 export default Personal;
