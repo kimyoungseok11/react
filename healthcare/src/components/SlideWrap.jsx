@@ -42,6 +42,7 @@ const SlideWrap = () => {
               data={data}
               subQdata={subQuestion}
               key={idx}
+              questionLength={question.length}
             ></SlideComponent>
           </SwiperSlide>
         ))}
