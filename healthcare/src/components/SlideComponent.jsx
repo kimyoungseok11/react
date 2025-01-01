@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import style from "../css/SlideComponent.module.css";
+import { surveyResultContext } from "../contexts/SurveyResult";
 
 const SlideComponent = (props) => {
   const { questionId, questionNumber, questionSubTitle } = props.data;
+  const { surveyList, changeSurveyResult } = useContext(surveyResultContext);
   const genderList = [
     { name: "male", text: "남성" },
     { name: "female", text: "여성" },
@@ -20,6 +22,14 @@ const SlideComponent = (props) => {
     return questionId === data.questionPreNumber;
   });
 
+  const radioClick = (e) => {
+    changeSurveyResult({ ...surveyList, [e.target.name]: e.target.value });
+  };
+
+  const submitSearch = () => {
+    console.log(surveyList);
+  };
+
   if (questionId === props.questionLength) {
     return (
       <div className={style.questionWrap}>
@@ -31,8 +41,9 @@ const SlideComponent = (props) => {
                 type="radio"
                 id={data.name}
                 name="gender"
-                value={(idx = 1)}
+                value={idx}
                 className={style.questionRadio}
+                onChange={radioClick}
               ></input>
               <p className={style.questionLabel}>{data.text}</p>
             </label>
@@ -46,13 +57,21 @@ const SlideComponent = (props) => {
                 type="radio"
                 id={data.name}
                 name="age"
-                value={(idx = 1)}
+                value={idx}
                 className={style.questionRadio}
+                onChange={radioClick}
               ></input>
               <p className={style.questionLabel}>{data.text}</p>
             </label>
           ))}
         </div>
+        <button
+          className={style.surveySubmitBtn}
+          type="butto"
+          onClick={submitSearch}
+        >
+          결과 확인
+        </button>
       </div>
     );
   } else {
@@ -75,6 +94,7 @@ const SlideComponent = (props) => {
                 name={data.questionTagName}
                 value={data.questionTagValue}
                 className={style.questionRadio}
+                onChange={radioClick}
               ></input>
               <p className={style.questionLabel}>{data.questionTitle}</p>
             </label>

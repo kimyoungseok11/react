@@ -41,3 +41,16 @@
   text-overflow: ellipsis;
   word-wrap: break-word;
 }
+
+.surveySubmitBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 0.4rem;
+  margin-left: auto;
+  margin-top: 1.2rem;
+  font-size: 16px;
+  background-color: #54575e;
+  color: rgb(255, 255, 255);
+}
