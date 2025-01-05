@@ -42,3 +42,31 @@ export const callSurveyList = async () => {
     console.error("Error fetching data:", error);
   }
 };
+
+//설문 제출 api
+export const submitSurveyList = async (param) => {
+  try {
+    const response = await axios.post(
+      `${baseUrl}/healthcare/personal/newSubmit.do`,
+      param
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
+
+//설문 결과 return
+export const returnSubmitResult = async (param) => {
+  try {
+    const response = await axios.post(
+      `${baseUrl}/healthcare/personal/result.do`,
+      param
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
