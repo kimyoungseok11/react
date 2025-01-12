@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { callSurveyList } from "../utils/apiCall";
 import SlideComponent from "./SlideComponent";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import { SurveyResultProvider } from "../contexts/SurveyResult";
+import { QuestionContext } from "../contexts/QuestionContext";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -11,22 +12,21 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
 const SlideWrap = () => {
-  const [question, setQuestion] = useState();
   const [subQuestion, setSubQuestion] = useState();
+  const { questionList, changeQuestionResult } = useContext(QuestionContext);
 
   useEffect(() => {
     async function fetchData() {
-      const data = await callSurveyList();
-      setQuestion(data.surveyList);
-      setSubQuestion(data.surveySubList);
+      changeQuestionResult();
+      console.log(questionList);
     }
 
     fetchData();
   }, []);
 
-  if (!question && !subQuestion) {
+  if (!questionList.surveyList && !questionList.surveySubList) {
     return <>로딩..</>;
-  } else if (question && subQuestion) {
+  } else if (questionList.surveyList && questionList.surveySubList) {
     return (
       <SurveyResultProvider>
         <Swiper
@@ -37,13 +37,13 @@ const SlideWrap = () => {
           className="mySwiper"
           pagination={{ clickable: true }}
         >
-          {question.map((data, idx) => (
+          {questionList.surveyList.map((data, idx) => (
             <SwiperSlide key={idx}>
               <SlideComponent
                 data={data}
-                subQdata={subQuestion}
+                subQdata={questionList.surveySubList}
                 key={idx}
-                questionLength={question.length}
+                questionLength={questionList.surveyList.length}
               ></SlideComponent>
             </SwiperSlide>
           ))}

@@ -1,10 +1,13 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import SlideWrap from "../components/SlideWrap";
+import { QuestionProvider } from "../contexts/QuestionContext";
 
 const Personal = () => {
   return (
     <Fragment>
-      <SlideWrap></SlideWrap>
+      <QuestionProvider>
+        <SlideWrap></SlideWrap>
+      </QuestionProvider>
     </Fragment>
   );
 };

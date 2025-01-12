@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import style from "../css/SlideComponent.module.css";
 import { surveyResultContext } from "../contexts/SurveyResult";
 import { submitSurveyList, returnSubmitResult } from "../utils/apiCall";
+import { QuestionContext } from "../contexts/QuestionContext";
 
 const SlideComponent = (props) => {
-  console.log(props.data);
   const { questionId, questionSubTitle } = props.data;
   const { surveyList, changeSurveyResult } = useContext(surveyResultContext);
   const genderList = [
@@ -19,11 +19,11 @@ const SlideComponent = (props) => {
     { name: "age-50", text: "50대" },
     { name: "age-60", text: "60대 이상" },
   ];
-
+  const { questionList, changeResultSlide } = useContext(QuestionContext);
   const subQuestion = props.subQdata.filter((data) => {
     return questionId === data.questionPreNumber;
   });
-  console.log(subQuestion);
+
   const radioClick = (e) => {
     changeSurveyResult({ ...surveyList, [e.target.name]: e.target.value });
   };
@@ -36,11 +36,17 @@ const SlideComponent = (props) => {
       pagePerRow: 8,
       regNumAnswer: regNum,
     };
+
+    changeResultSlide({
+      questionId: questionList.length + 1,
+      questionTitle: "결과 확인",
+      questionSubTitle: "",
+    });
+
     const resultData = await returnSubmitResult(paramData);
-    console.log(resultData);
   };
 
-  if (questionId === props.questionLength) {
+  if (props.data.questionTitle === "응답자 조사") {
     return (
       <div className={style.questionWrap}>
         <h2 className={style.mainTitle}>당신의 성별을 선택해주세요</h2>
