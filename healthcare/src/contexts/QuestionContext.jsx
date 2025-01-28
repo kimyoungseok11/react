@@ -5,10 +5,10 @@ export const QuestionContext = createContext();
 
 export function QuestionProvider({ children }) {
   const [questionList, setQuestionList] = useState({});
+  const [resultData, setResultData] = useState({});
 
   const changeQuestionResult = async () => {
     const data = await callSurveyList();
-    console.log(data);
     setQuestionList(data);
   };
 
@@ -18,12 +18,21 @@ export function QuestionProvider({ children }) {
       surveyList: [...questionList.surveyList, data],
     };
     setQuestionList(newObj);
-    console.log(questionList);
+  };
+
+  const changeResultData = async (data) => {
+    setResultData(data);
   };
 
   return (
     <QuestionContext.Provider
-      value={{ questionList, changeQuestionResult, changeResultSlide }}
+      value={{
+        questionList,
+        resultData,
+        changeQuestionResult,
+        changeResultSlide,
+        changeResultData,
+      }}
     >
       {children}
     </QuestionContext.Provider>

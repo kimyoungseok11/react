@@ -1,11 +1,11 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import style from "../css/SlideComponent.module.css";
 import { surveyResultContext } from "../contexts/SurveyResult";
 import { submitSurveyList, returnSubmitResult } from "../utils/apiCall";
 import { QuestionContext } from "../contexts/QuestionContext";
 
 const SlideComponent = (props) => {
-  const { questionId, questionSubTitle } = props.data;
+  const { questionId, questionTitle, questionSubTitle } = props.data;
   const { surveyList, changeSurveyResult } = useContext(surveyResultContext);
   const genderList = [
     { name: "male", text: "남성" },
@@ -19,7 +19,8 @@ const SlideComponent = (props) => {
     { name: "age-50", text: "50대" },
     { name: "age-60", text: "60대 이상" },
   ];
-  const { questionList, changeResultSlide } = useContext(QuestionContext);
+  const { questionList, changeResultSlide, resultData, changeResultData } =
+    useContext(QuestionContext);
   const subQuestion = props.subQdata.filter((data) => {
     return questionId === data.questionPreNumber;
   });
@@ -38,12 +39,13 @@ const SlideComponent = (props) => {
     };
 
     changeResultSlide({
-      questionId: questionList.length + 1,
+      questionId: questionList.surveyList.length + 1,
       questionTitle: "결과 확인",
       questionSubTitle: "",
     });
 
-    const resultData = await returnSubmitResult(paramData);
+    const submitResult = await returnSubmitResult(paramData);
+    changeResultData(submitResult);
   };
 
   if (props.data.questionTitle === "응답자 조사") {
@@ -90,9 +92,16 @@ const SlideComponent = (props) => {
         </button>
       </div>
     );
+  } else if (props.data.questionTitle === "결과 확인") {
+    return (
+      <div className={style.questionWrap}>
+        <h2>{questionTitle}</h2>
+      </div>
+    );
   } else {
     return (
       <div className={style.questionWrap}>
+        <h2>{questionTitle}</h2>
         <h2 className={style.mainTitle}>
           {questionSubTitle.split("<br/>").map((el) => {
             return <p key={el + Math.random()}>{el}</p>;
