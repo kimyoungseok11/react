@@ -5,6 +5,13 @@
   flex-direction: column;
   gap: 40px;
 }
+.questionTitle {
+  display: inline-block;
+  font-size: 28px;
+  font-weight: 700;
+  position: relative;
+  color: #f06817;
+}
 .mainTitle {
   white-space: pre-wrap;
   display: block;
@@ -53,4 +60,23 @@
   font-size: 16px;
   background-color: #54575e;
   color: rgb(255, 255, 255);
+}
+
+.resultWrap {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.resultImgBox {
+  width: 150px;
+}
+
+.resultTxtWrap {
+  display: flex;
+  justify-content: space-around;
+}
+
+.resultTxtBox {
+  text-align: center;
 }

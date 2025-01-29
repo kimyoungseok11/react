@@ -5,7 +5,7 @@ export const QuestionContext = createContext();
 
 export function QuestionProvider({ children }) {
   const [questionList, setQuestionList] = useState({});
-  const [resultData, setResultData] = useState({});
+  const [resultData, setResultData] = useState({ total: 0, list: [] });
 
   const changeQuestionResult = async () => {
     const data = await callSurveyList();
@@ -20,8 +20,9 @@ export function QuestionProvider({ children }) {
     setQuestionList(newObj);
   };
 
-  const changeResultData = async (data) => {
-    setResultData(data);
+  const changeResultData = (data) => {
+    const newObject = { ...data };
+    setResultData(newObject);
   };
 
   return (

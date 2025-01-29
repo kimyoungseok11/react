@@ -48,7 +48,7 @@ const SlideComponent = (props) => {
     changeResultData(submitResult);
   };
 
-  if (props.data.questionTitle === "응답자 조사") {
+  if (questionTitle === "응답자 조사") {
     return (
       <div className={style.questionWrap}>
         <h2 className={style.mainTitle}>당신의 성별을 선택해주세요</h2>
@@ -92,16 +92,43 @@ const SlideComponent = (props) => {
         </button>
       </div>
     );
-  } else if (props.data.questionTitle === "결과 확인") {
-    return (
-      <div className={style.questionWrap}>
-        <h2>{questionTitle}</h2>
-      </div>
-    );
+  } else if (questionTitle === "결과 확인") {
+    if (resultData) {
+      return (
+        <div className={style.questionWrap}>
+          <h2 className={style.questionTitle}>{questionTitle}</h2>
+          <div className={style.resultWrap}>
+            {resultData.list.map((item) => {
+              if (item.id <= 2) {
+                return (
+                  <div className={style.resultImgBox}>
+                    <img
+                      className={style.questionImage}
+                      src={`/images/plant/${item.id}.jpg`}
+                    />
+                  </div>
+                );
+              }
+            })}
+          </div>
+          <div className={style.resultWrap}>
+            {resultData.list.map((item) => {
+              if (item.id > 3) {
+                return (
+                  <div className={style.resultTxtBox}>
+                    <label>{item.plantKorNm}</label>
+                  </div>
+                );
+              }
+            })}
+          </div>
+        </div>
+      );
+    }
   } else {
     return (
       <div className={style.questionWrap}>
-        <h2>{questionTitle}</h2>
+        <h2 className={style.questionTitle}>{questionTitle}</h2>
         <h2 className={style.mainTitle}>
           {questionSubTitle.split("<br/>").map((el) => {
             return <p key={el + Math.random()}>{el}</p>;
