@@ -1,16 +1,20 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useState, useRef } from "react";
 import style from "../css/SlideComponent.module.css";
 import { surveyResultContext } from "../contexts/SurveyResult";
 import { submitSurveyList, returnSubmitResult } from "../utils/apiCall";
 import { QuestionContext } from "../contexts/QuestionContext";
+import { callDetailData } from "../utils/apiCall";
+import detailPlantStyle from "../css/PlantDetail.module.css";
 
 const SlideComponent = (props) => {
   const { questionId, questionTitle, questionSubTitle } = props.data;
   const { surveyList, changeSurveyResult } = useContext(surveyResultContext);
+  const [detailPlantInfo, setDetailPlantInfo] = useState({});
   const genderList = [
     { name: "male", text: "남성" },
     { name: "female", text: "여성" },
   ];
+
   const ageList = [
     { name: "age-10", text: "10대" },
     { name: "age-20", text: "20대" },
@@ -19,6 +23,8 @@ const SlideComponent = (props) => {
     { name: "age-50", text: "50대" },
     { name: "age-60", text: "60대 이상" },
   ];
+  const navigationNextRef = useRef(null);
+
   const { questionList, changeResultSlide, resultData, changeResultData } =
     useContext(QuestionContext);
   const subQuestion = props.subQdata.filter((data) => {
@@ -46,6 +52,15 @@ const SlideComponent = (props) => {
 
     const submitResult = await returnSubmitResult(paramData);
     changeResultData(submitResult);
+
+    const swiperInstance = props.swiperRef.current.swiper;
+    const lastIndex = swiperInstance.slides.length - 1; // 마지막 슬라이드 인덱스 계산
+    swiperInstance.slideTo(lastIndex);
+  };
+
+  const btnClick = async (id) => {
+    const fetchData = await callDetailData(id);
+    setDetailPlantInfo(fetchData);
   };
 
   if (questionTitle === "응답자 조사") {
@@ -87,6 +102,7 @@ const SlideComponent = (props) => {
           className={style.surveySubmitBtn}
           type="butto"
           onClick={submitSearch}
+          ref={navigationNextRef}
         >
           결과 확인
         </button>
@@ -95,33 +111,112 @@ const SlideComponent = (props) => {
   } else if (questionTitle === "결과 확인") {
     if (resultData) {
       return (
-        <div className={style.questionWrap}>
-          <h2 className={style.questionTitle}>{questionTitle}</h2>
-          <div className={style.resultWrap}>
-            {resultData.list.map((item) => {
-              if (item.id <= 2) {
-                return (
-                  <div className={style.resultImgBox}>
-                    <img
-                      className={style.questionImage}
-                      src={`/images/plant/${item.id}.jpg`}
-                    />
-                  </div>
-                );
-              }
-            })}
+        <div className={style.questionResultWrap}>
+          <div className={style.btnWrap}>
+            <h2 className={style.questionTitle}>{questionTitle}</h2>
+            <div className={style.resultWrap}>
+              {resultData.list.map((item) => {
+                if (item.id <= 2) {
+                  return (
+                    <div
+                      className={style.resultImgBox}
+                      onClick={() => {
+                        btnClick(item.id);
+                      }}
+                    >
+                      <img
+                        className={style.questionImage}
+                        src={`/images/plant/${item.id}.jpg`}
+                      />
+                    </div>
+                  );
+                }
+              })}
+            </div>
+            <div className={style.resultWrap}>
+              {resultData.list.map((item) => {
+                if (item.id > 3) {
+                  return (
+                    <div className={style.resultTxtBox}>
+                      <label>{item.plantKorNm}</label>
+                    </div>
+                  );
+                }
+              })}
+            </div>
           </div>
-          <div className={style.resultWrap}>
-            {resultData.list.map((item) => {
-              if (item.id > 3) {
-                return (
-                  <div className={style.resultTxtBox}>
-                    <label>{item.plantKorNm}</label>
-                  </div>
-                );
-              }
-            })}
-          </div>
+          {Object.keys(detailPlantInfo).length !== 0 && (
+            <div className={detailPlantStyle.viewDetailsWrap}>
+              <div className={detailPlantStyle.viewDetail}>
+                <div className={detailPlantStyle.imgBox}>
+                  <img
+                    src={`/images/plant/${detailPlantInfo.detailPlant.id}.jpg`}
+                    alt="식물영역"
+                  />
+                </div>
+                <div className={detailPlantStyle.articleBox}>
+                  <article>
+                    <h3>{detailPlantInfo.detailPlant.plantKorNm}</h3>
+                    <span className={detailPlantStyle.detailContents}>
+                      {detailPlantInfo.detailPlant.plantEngNm}
+                      <br />
+                      {detailPlantInfo.detailPlant.botanyNm}
+                      <br />
+                      {detailPlantInfo.detailPlant.circulationNm}
+                    </span>
+                    <div className={detailPlantStyle.subDetail}>
+                      <p
+                        className={detailPlantStyle.boldTxt}
+                        style={{ display: "block" }}
+                      >
+                        [비료요구정도]{" "}
+                        <span>{detailPlantInfo.detailPlant.frtlzrInfo}</span>
+                      </p>
+                      <div
+                        className={detailPlantStyle.boldTxt}
+                        style={{ display: "flex" }}
+                      >
+                        <p>[물주기]</p>
+                        <div className={detailPlantStyle.appendWrap}>
+                          <span style={{ marginLeft: "12px" }}>
+                            - 봄 : {detailPlantInfo.detailPlant.spring}
+                          </span>
+                          <span style={{ marginLeft: "12px" }}>
+                            - 여름 : {detailPlantInfo.detailPlant.summer}
+                          </span>
+                          <span style={{ marginLeft: "12px" }}>
+                            - 가을 : {detailPlantInfo.detailPlant.autumn}
+                          </span>
+                          <span style={{ marginLeft: "12px" }}>
+                            - 겨울 : {detailPlantInfo.detailPlant.winter}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div
+                className={`${detailPlantStyle.searchResults} ${detailPlantStyle.similarPlantResults}`}
+              >
+                <p className={detailPlantStyle.minDetail}>유사식물 </p>
+                <ul>
+                  {detailPlantInfo.similarPlantList.map((similarPlant, idx) => (
+                    <li key={idx}>
+                      <button
+                        onClick={() => {
+                          btnClick(similarPlant.id);
+                        }}
+                      >
+                        <img src={`/images/plant/${similarPlant.id}.jpg`} />
+                      </button>
+                      <p>{similarPlant.plantKorNm}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
         </div>
       );
     }

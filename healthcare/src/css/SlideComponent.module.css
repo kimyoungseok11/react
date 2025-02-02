@@ -5,6 +5,15 @@
   flex-direction: column;
   gap: 40px;
 }
+.questionResultWrap {
+  width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+}
+
 .questionTitle {
   display: inline-block;
   font-size: 28px;
@@ -62,10 +71,15 @@
   color: rgb(255, 255, 255);
 }
 
+.btnWrap {
+  width: 600px;
+}
+
 .resultWrap {
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  margin: 24px 0;
 }
 
 .resultImgBox {

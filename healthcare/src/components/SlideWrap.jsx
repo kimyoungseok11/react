@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { callSurveyList } from "../utils/apiCall";
 import SlideComponent from "./SlideComponent";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import { SurveyResultProvider } from "../contexts/SurveyResult";
@@ -12,13 +11,30 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
 const SlideWrap = () => {
-  const [subQuestion, setSubQuestion] = useState();
   const { questionList, changeQuestionResult } = useContext(QuestionContext);
+  const [mainImageIndex, setMainImageIndex] = useState(0);
+  const navigationPrevRef = useRef(null);
+  const navigationNextRef = useRef(null);
+  const swiperRef = useRef(null);
+
+  const swiperOption = {
+    spaceBetween: 50,
+    slidesPerView: 1,
+    onSlideChange: (e) => {
+      setMainImageIndex(e.activeIndex);
+    },
+    modules: [Navigation, Pagination, Scrollbar, A11y],
+    onBeforeInit: (swiper) => {
+      swiper.params.navigation.prevEl = navigationPrevRef.current;
+      swiper.params.navigation.nextEl = navigationNextRef.current;
+      swiper.activeIndex = mainImageIndex;
+      swiper.navigation.update();
+    },
+  };
 
   useEffect(() => {
     async function fetchData() {
       changeQuestionResult();
-      console.log(questionList);
     }
 
     fetchData();
@@ -29,14 +45,7 @@ const SlideWrap = () => {
   } else if (questionList.surveyList && questionList.surveySubList) {
     return (
       <SurveyResultProvider>
-        <Swiper
-          spaceBetween={50}
-          slidesPerView={1}
-          onSlideChange={() => console.log("slide change")}
-          modules={[Navigation, Pagination, Scrollbar, A11y]}
-          className="mySwiper"
-          pagination={{ clickable: true }}
-        >
+        <Swiper {...swiperOption} ref={swiperRef}>
           {questionList.surveyList.map((data, idx) => (
             <SwiperSlide key={idx}>
               <SlideComponent
@@ -44,10 +53,14 @@ const SlideWrap = () => {
                 subQdata={questionList.surveySubList}
                 key={idx}
                 questionLength={questionList.surveyList.length}
+                swiperOption={swiperOption}
+                swiperRef={swiperRef}
               ></SlideComponent>
             </SwiperSlide>
           ))}
         </Swiper>
+        <button ref={navigationPrevRef}>이전</button>
+        <button ref={navigationNextRef}>다음</button>
       </SurveyResultProvider>
     );
   }
