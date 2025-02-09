@@ -1,0 +1,11 @@
+.arrowBtn {
+  position: absolute;
+  bottom: 50%;
+  z-index: 1;
+}
+.prevBtn {
+  left: 150px;
+}
+.nextBtn {
+  right: 150px;
+}

@@ -4,6 +4,9 @@ import SlideComponent from "./SlideComponent";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import { SurveyResultProvider } from "../contexts/SurveyResult";
 import { QuestionContext } from "../contexts/QuestionContext";
+import style from "../css/slideWrap.module.css";
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -58,9 +61,19 @@ const SlideWrap = () => {
               ></SlideComponent>
             </SwiperSlide>
           ))}
+          <button
+            className={`${style.prevBtn} ${style.arrowBtn}`}
+            ref={navigationPrevRef}
+          >
+            <IoIosArrowBack size={50} />
+          </button>
+          <button
+            className={`${style.nextBtn} ${style.arrowBtn}`}
+            ref={navigationNextRef}
+          >
+            <IoIosArrowForward size={50} />
+          </button>
         </Swiper>
-        <button ref={navigationPrevRef}>이전</button>
-        <button ref={navigationNextRef}>다음</button>
       </SurveyResultProvider>
     );
   }
