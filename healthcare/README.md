@@ -18,9 +18,22 @@ swiper : 11.1.15
 
 ---
 
-## 🧩 주요 기능 및 작업 내용
+### 주요 개선 내용
 
-- 기존 JSP 페이지 구조 분석 및 컴포넌트 단위로 분할 설계
-- 공통 컴포넌트(Button, Table 등) 생성 및 재사용성 강화
-- React Router를 이용한 페이지 라우팅 구성
-- Axios를 통한 기존 API 연동 및 상태 관리 최소화
+| 항목 | 개선 내용 |
+|------|------------|
+| **화면 렌더링 구조** | JSP → React SPA 전환 (React Router로 페이지 관리) |
+| **데이터 통신** | form submit → Axios 기반 REST API 통신 |
+| **UI 구조** | JSP include → 공통 컴포넌트(Header, Sidebar, Table 등) 재사용 |
+| **상태 관리** | DOM 조작 → useState / useEffect 기반 상태 관리 |
+
+
+프로젝트 구조
+ ┣ 📂src
+ ┃ ┣ 📂util         # Axios 요청 모듈 및 js 로직
+ ┃ ┣ 📂components  # 공통 UI 컴포넌트
+ ┃ ┣ 📂pages       # 주요 페이지 컴포넌트
+ ┃ ┣ 📂images      # 이미지
+ ┃ ┣ 📂css      # css(css_module 사용)
+ ┃ ┗ 📜App.jsx
+ ┗ 📜package.json
