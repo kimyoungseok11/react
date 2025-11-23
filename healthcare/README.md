@@ -28,7 +28,7 @@ swiper : 11.1.15
 | **상태 관리** | DOM 조작 → useState / useEffect 기반 상태 관리 |
 
 
-프로젝트 구조
+📦 frontend
  ┣ 📂src
  ┃ ┣ 📂util         # Axios 요청 모듈 및 js 로직
  ┃ ┣ 📂components  # 공통 UI 컴포넌트
