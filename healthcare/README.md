@@ -29,11 +29,19 @@ swiper : 11.1.15
 
 
 📦 frontend
+
  ┣ 📂src
+ 
  ┃ ┣ 📂util         # Axios 요청 모듈 및 js 로직
+ 
  ┃ ┣ 📂components  # 공통 UI 컴포넌트
+ 
  ┃ ┣ 📂pages       # 주요 페이지 컴포넌트
+ 
  ┃ ┣ 📂images      # 이미지
+ 
  ┃ ┣ 📂css      # css(css_module 사용)
+ 
  ┃ ┗ 📜App.jsx
+ 
  ┗ 📜package.json
